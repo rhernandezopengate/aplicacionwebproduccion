@@ -124,6 +124,13 @@ namespace WebAppProduccion.Controllers.Sistemas
         {
             if (disposing)
             {
+                string sa = User.Identity.Name;
+
+                if (Session["ua"] == null)
+                {
+                    Session["ua"] = sa;
+                }
+
                 db.Dispose();
             }
             base.Dispose(disposing);

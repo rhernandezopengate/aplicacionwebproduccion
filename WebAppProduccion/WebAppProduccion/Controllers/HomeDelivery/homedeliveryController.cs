@@ -105,5 +105,21 @@ namespace WebAppProduccion.Controllers
         {
             return View();
         }
+
+        protected override void Dispose(bool disposing)
+        {
+            if (disposing)
+            {
+                string sa = User.Identity.Name;
+
+                if (Session["ua"] == null)
+                {
+                    Session["ua"] = sa;
+                }
+
+                db.Dispose();
+            }
+            base.Dispose(disposing);
+        }
     }
 }

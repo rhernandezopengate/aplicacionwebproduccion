@@ -374,5 +374,21 @@ namespace WebAppProduccion.Controllers.Waldos
         {
             return Task.Run(() => db.skus.ToList());
         }
+
+        protected override void Dispose(bool disposing)
+        {
+            if (disposing)
+            {
+                string sa = User.Identity.Name;
+
+                if (Session["ua"] == null)
+                {
+                    Session["ua"] = sa;
+                }
+
+                db.Dispose();
+            }
+            base.Dispose(disposing);
+        }
     }
 }
