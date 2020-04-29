@@ -1,0 +1,203 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="DB_A3F19C_producccionModel2.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+  <EntityType Name="categoriaproveedor">
+    <Key>
+      <PropertyRef Name="id" />
+    </Key>
+    <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="descripcion" Type="varchar" MaxLength="50" />
+  </EntityType>
+  <EntityType Name="contactosproveedores">
+    <Key>
+      <PropertyRef Name="id" />
+    </Key>
+    <Property Name="id" Type="int" Nullable="false" />
+    <Property Name="nombres" Type="varchar" MaxLength="100" />
+    <Property Name="email" Type="varchar" MaxLength="100" />
+    <Property Name="puesto" Type="varchar" MaxLength="50" />
+    <Property Name="proveedores_id" Type="int" Nullable="false" />
+  </EntityType>
+  <EntityType Name="credito">
+    <Key>
+      <PropertyRef Name="id" />
+    </Key>
+    <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="descripcion" Type="varchar" MaxLength="50" />
+    <Property Name="dias" Type="int" />
+  </EntityType>
+  <EntityType Name="direccionproveedor">
+    <Key>
+      <PropertyRef Name="id" />
+    </Key>
+    <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Pais" Type="varchar" MaxLength="50" />
+    <Property Name="Estado" Type="varchar" MaxLength="50" />
+    <Property Name="Municipio" Type="varchar" MaxLength="50" />
+    <Property Name="Colonia" Type="varchar" MaxLength="50" />
+    <Property Name="Calle" Type="varchar" MaxLength="50" />
+    <Property Name="CP" Type="varchar" MaxLength="50" />
+    <Property Name="Proveedores_Id" Type="int" Nullable="false" />
+  </EntityType>
+  <EntityType Name="informacionbancaria">
+    <Key>
+      <PropertyRef Name="id" />
+    </Key>
+    <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="NombreBanco" Type="varchar" MaxLength="50" />
+    <Property Name="CuentaBancaria" Type="varchar" MaxLength="50" />
+    <Property Name="ClaveInterbancaria" Type="varchar" MaxLength="50" />
+    <Property Name="Proveedores_Id" Type="int" Nullable="false" />
+  </EntityType>
+  <EntityType Name="monedafacturacion">
+    <Key>
+      <PropertyRef Name="id" />
+    </Key>
+    <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="descripcion" Type="varchar" MaxLength="50" />
+  </EntityType>
+  <EntityType Name="proveedores">
+    <Key>
+      <PropertyRef Name="id" />
+    </Key>
+    <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="FechaAlta" Type="datetime" />
+    <Property Name="RazonSocial" Type="varchar" MaxLength="100" />
+    <Property Name="RFC" Type="varchar" MaxLength="50" />
+    <Property Name="NombreComercial" Type="varchar" MaxLength="100" />
+    <Property Name="ActividadEmpresarial" Type="varchar" MaxLength="50" />
+    <Property Name="RepresentanteLegal" Type="varchar" MaxLength="50" />
+    <Property Name="MonedaFacturacion_Id" Type="int" Nullable="false" />
+    <Property Name="Credito_Id" Type="int" Nullable="false" />
+    <Property Name="CategoriaProveedor_Id" Type="int" Nullable="false" />
+    <Property Name="StatusProveedor_Id" Type="int" />
+  </EntityType>
+  <EntityType Name="statusproveedor">
+    <Key>
+      <PropertyRef Name="id" />
+    </Key>
+    <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="descripcion" Type="varchar" MaxLength="50" />
+  </EntityType>
+  <Association Name="contactosproveedores_proveedores_fk">
+    <End Role="proveedores" Type="Self.proveedores" Multiplicity="1" />
+    <End Role="contactosproveedores" Type="Self.contactosproveedores" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="proveedores">
+        <PropertyRef Name="id" />
+      </Principal>
+      <Dependent Role="contactosproveedores">
+        <PropertyRef Name="proveedores_id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="direccionproveedor_proveedores_fk">
+    <End Role="proveedores" Type="Self.proveedores" Multiplicity="1" />
+    <End Role="direccionproveedor" Type="Self.direccionproveedor" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="proveedores">
+        <PropertyRef Name="id" />
+      </Principal>
+      <Dependent Role="direccionproveedor">
+        <PropertyRef Name="Proveedores_Id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="informacionbancaria_proveedores_fk">
+    <End Role="proveedores" Type="Self.proveedores" Multiplicity="1" />
+    <End Role="informacionbancaria" Type="Self.informacionbancaria" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="proveedores">
+        <PropertyRef Name="id" />
+      </Principal>
+      <Dependent Role="informacionbancaria">
+        <PropertyRef Name="Proveedores_Id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="proveedores_categoriaproveedor_fk">
+    <End Role="categoriaproveedor" Type="Self.categoriaproveedor" Multiplicity="1" />
+    <End Role="proveedores" Type="Self.proveedores" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="categoriaproveedor">
+        <PropertyRef Name="id" />
+      </Principal>
+      <Dependent Role="proveedores">
+        <PropertyRef Name="CategoriaProveedor_Id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="proveedores_credito_fk">
+    <End Role="credito" Type="Self.credito" Multiplicity="1" />
+    <End Role="proveedores" Type="Self.proveedores" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="credito">
+        <PropertyRef Name="id" />
+      </Principal>
+      <Dependent Role="proveedores">
+        <PropertyRef Name="Credito_Id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="proveedores_monedafacturacion_fk">
+    <End Role="monedafacturacion" Type="Self.monedafacturacion" Multiplicity="1" />
+    <End Role="proveedores" Type="Self.proveedores" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="monedafacturacion">
+        <PropertyRef Name="id" />
+      </Principal>
+      <Dependent Role="proveedores">
+        <PropertyRef Name="MonedaFacturacion_Id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="proveedores_statusproveedor_fk">
+    <End Role="statusproveedor" Type="Self.statusproveedor" Multiplicity="0..1" />
+    <End Role="proveedores" Type="Self.proveedores" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="statusproveedor">
+        <PropertyRef Name="id" />
+      </Principal>
+      <Dependent Role="proveedores">
+        <PropertyRef Name="StatusProveedor_Id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <EntityContainer Name="DB_A3F19C_producccionModel2StoreContainer">
+    <EntitySet Name="categoriaproveedor" EntityType="Self.categoriaproveedor" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="contactosproveedores" EntityType="Self.contactosproveedores" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="credito" EntityType="Self.credito" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="direccionproveedor" EntityType="Self.direccionproveedor" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="informacionbancaria" EntityType="Self.informacionbancaria" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="monedafacturacion" EntityType="Self.monedafacturacion" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="proveedores" EntityType="Self.proveedores" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="statusproveedor" EntityType="Self.statusproveedor" Schema="dbo" store:Type="Tables" />
+    <AssociationSet Name="contactosproveedores_proveedores_fk" Association="Self.contactosproveedores_proveedores_fk">
+      <End Role="proveedores" EntitySet="proveedores" />
+      <End Role="contactosproveedores" EntitySet="contactosproveedores" />
+    </AssociationSet>
+    <AssociationSet Name="direccionproveedor_proveedores_fk" Association="Self.direccionproveedor_proveedores_fk">
+      <End Role="proveedores" EntitySet="proveedores" />
+      <End Role="direccionproveedor" EntitySet="direccionproveedor" />
+    </AssociationSet>
+    <AssociationSet Name="informacionbancaria_proveedores_fk" Association="Self.informacionbancaria_proveedores_fk">
+      <End Role="proveedores" EntitySet="proveedores" />
+      <End Role="informacionbancaria" EntitySet="informacionbancaria" />
+    </AssociationSet>
+    <AssociationSet Name="proveedores_categoriaproveedor_fk" Association="Self.proveedores_categoriaproveedor_fk">
+      <End Role="categoriaproveedor" EntitySet="categoriaproveedor" />
+      <End Role="proveedores" EntitySet="proveedores" />
+    </AssociationSet>
+    <AssociationSet Name="proveedores_credito_fk" Association="Self.proveedores_credito_fk">
+      <End Role="credito" EntitySet="credito" />
+      <End Role="proveedores" EntitySet="proveedores" />
+    </AssociationSet>
+    <AssociationSet Name="proveedores_monedafacturacion_fk" Association="Self.proveedores_monedafacturacion_fk">
+      <End Role="monedafacturacion" EntitySet="monedafacturacion" />
+      <End Role="proveedores" EntitySet="proveedores" />
+    </AssociationSet>
+    <AssociationSet Name="proveedores_statusproveedor_fk" Association="Self.proveedores_statusproveedor_fk">
+      <End Role="statusproveedor" EntitySet="statusproveedor" />
+      <End Role="proveedores" EntitySet="proveedores" />
+    </AssociationSet>
+  </EntityContainer>
+</Schema>

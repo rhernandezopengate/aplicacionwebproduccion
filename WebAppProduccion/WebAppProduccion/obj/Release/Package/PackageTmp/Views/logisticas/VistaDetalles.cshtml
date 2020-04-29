@@ -1,0 +1,117 @@
+﻿@model WebAppProduccion.Entities.ModulosEscaneos.logisticainversa
+@{
+    ViewBag.Title = "VistaDetalles";
+    Layout = null;
+}
+
+
+    <div class="modal-body">
+        <div class="flex">
+            <ul class="list-inline count2">
+                <li>
+                    <h3><label id="Folio">Logistica Inversa</label></h3>
+                    <span>@Model.Folio</span>
+                </li>
+                <li>
+                    <h3><label id="origen">Origen</label></h3>
+                    <span>@Model.li_origen.descripcion</span>
+                </li>
+                <li>
+                    <h3><label id="status">Status</label></h3>
+                    <span>@Model.li_status.descripcion</span>
+                </li>
+            </ul>
+        </div>
+        <div class="well" style="overflow: auto">
+            <div class="col-sm-3">
+                <div class="form-group">
+                    <div class="input-group date">
+                        <input type="text" id="txtSKUModal" name="txtSKUModal" class="form-control" autocomplete="off" placeholder="SKU" />
+                        <span class="input-group-addon">
+                            <span class="fa fa-barcode"></span>
+                        </span>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <table id="tblResumen" class="table table-bordered" width="100%">
+            <thead>
+                <tr>
+                    <th>PALLET</th>
+                    <th>CAJA</th>
+                    <th>SKU</th>
+                    <th>CANTIDAD</th>
+                </tr>
+            </thead>
+        </table>
+        <br />
+        <br /><br />
+    </div>
+<div class="modal-footer">   
+    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+</div>
+
+<script>
+    $(document).ready(function () {
+        tableResumen = $("#tblResumen").DataTable({
+            "lengthMenu": [[10, 25, 50, -1], [10, 25, 50, "All"]],
+            "processing": true,
+            "serverSide": true,
+            "dom": 'Blrtip',
+            buttons: [
+                {
+                    extend: 'copyHtml5',
+                    text: '<i class="fa fa-files-o"></i>',
+                    titleAttr: 'COPIAR',
+                    exportOptions: {
+                        columns: ':visible'
+                    }
+                },
+                {
+
+                    extend: 'print',
+                    text: '<i class="fa fa-print"></i>',
+                    titleAttr: 'IMPRIMIR',
+                    exportOptions: {
+                        columns: ':visible'
+                    }
+                },
+                {
+                    extend: 'excel',
+                    text: '<i class="fa fa-file-excel-o"></i>',
+                    titleAttr: 'EXCEL',
+                    exportOptions: {
+                        columns: ':visible'
+                    }
+                },
+                {
+                    extend: 'pdf',
+                    text: '<i class="fa fa-file-pdf-o"></i>',
+                    titleAttr: 'PDF',
+                    orientation: 'landscape',
+                    exportOptions: {
+                        columns: ':visible'
+                    }
+                }
+
+            ],
+            "ajax": {
+                url: "/logisticas/DetallesLogistica/",
+                data: { idlogistica: @Html.Raw(Model.id) },
+                type: "POST",
+                datatype: "json"
+            },
+            "aoColumns": [
+                { "data": "foliotarima", "autoWidth": true },    
+                { "data": "foliocaja", "autoWidth": true },    
+                { "data": "sku", "autoWidth": true },    
+                { "data": "cantidad", "autoWidth": true },    
+            ]
+        });
+
+        $('#txtSKUModal').on('keyup', function () {
+            tableResumen.columns(0).search(this.value).draw();
+        });
+    });
+</script>

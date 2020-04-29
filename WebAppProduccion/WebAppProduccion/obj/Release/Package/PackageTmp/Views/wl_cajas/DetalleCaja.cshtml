@@ -1,0 +1,58 @@
+﻿@model IEnumerable<WebAppProduccion.Entities.ModulosEscaneos.DetalleCajaViewModel>
+
+@{
+    ViewBag.Title = "Detalle Caja";
+    Layout = null;
+}
+
+<div class="modal-header text-center">
+    <button type="button" class="close" data-dismiss="modal">
+        <span aria-hidden="true">×</span>
+    </button>
+    <h2 class="modal-title">Detalle Caja @ViewBag.Caja</h2>
+</div>
+<div class="modal-body">
+    <div class="flex">
+        <ul class="list-inline count2 text-center">
+            <li>
+                <h3><label id="Folio">Guia</label></h3>
+                <span>@ViewBag.Guia</span>
+            </li>
+            <li>
+                <h3><label id="origen">Tienda</label></h3>
+                <span>
+                    @ViewBag.Tienda
+                </span>
+            </li>
+            <li>
+                <h3><label id="status">Status</label></h3>
+                <span>@ViewBag.StatusCaja</span>
+            </li>
+            <li>
+                <br />
+                <h3><label id="status">Paquetes</label></h3>
+                <span>@ViewBag.Paquetes</span>
+            </li>
+        </ul>
+    </div>
+    <table class="table table-bordered">
+        <thead>
+            <tr>
+                <th>SKU</th>
+                <th>Cantidad</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var item in Model)
+            {
+                <tr>
+                    <td>@item.sku</td>
+                    <td>@item.cantidad</td>
+                </tr>
+            }
+        </tbody>
+    </table>
+</div>
+<div class="modal-footer">
+    <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
+</div>

@@ -1,0 +1,51 @@
+﻿@model WebAppProduccion.Entities.ModulosEscaneos.skus
+
+@{
+    ViewBag.Title = "Details";
+    Layout = "~/Views/Shared/_LayoutInventarios.cshtml";
+}
+
+<h2>Details</h2>
+
+<div>
+    <h4>skus</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.SKU)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.SKU)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Descripcion)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Descripcion)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.codigobarras)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.codigobarras)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.uom.descripcion)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.uom.descripcion)
+        </dd>
+
+    </dl>
+</div>
+<p>
+    @Html.ActionLink("Edit", "Edit", new { id = Model.id }) |
+    @Html.ActionLink("Back to List", "Index")
+</p>

@@ -22,9 +22,27 @@ namespace WebAppProduccion
             bundles.Add(new ScriptBundle("~/bundles/bootstrap").Include(
                       "~/Scripts/bootstrap.js"));
 
+            //bundles.Add(new StyleBundle("~/Content/css").Include(
+            //          "~/Content/bootstrap.css",
+            //          "~/Content/site.css"));
+
             bundles.Add(new StyleBundle("~/Content/css").Include(
-                      "~/Content/bootstrap.css",
-                      "~/Content/site.css"));
+                     "~/vendors/bootstrap/dist/css/bootstrap.min.css",
+                     "~/vendors/nprogress/nprogress.css",
+                     "~/vendors/iCheck/skins/flat/green.css",
+                     "~/build/css/custom.min.css"
+                     ));
+
+
+            bundles.Add(new ScriptBundle("~/vendors/Scripts").Include(
+                      "~/vendors/jquery/dist/jquery.min.js",
+                      "~/vendors/bootstrap/dist/js/bootstrap.min.js",
+                      "~/vendors/fastclick/lib/fastclick.js",
+                      "~/vendors/nprogress/nprogress.js",
+                      "~/vendors/skycons/skycons.js",
+                      "~/vendors/iCheck/icheck.js",
+                      "~/build/js/custom.min.js"
+                      ));
         }
     }
 }

@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+ <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <!-- Diagram content (shape and connector positions) -->
+    <edmx:Diagrams>
+      <Diagram DiagramId="5453d14da525496296e1bf7b7214bcea" Name="Diagram1">
+        <EntityTypeShape EntityType="DB_A3F19C_producccionModel1.empleados" Width="1.5" PointX="0.5" PointY="0.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="DB_A3F19C_producccionModel1.modulos" Width="1.5" PointX="2.375" PointY="3.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="DB_A3F19C_producccionModel1.operaciones" Width="1.5" PointX="4.625" PointY="3.375" IsExpanded="true" />
+        <EntityTypeShape EntityType="DB_A3F19C_producccionModel1.rol" Width="1.5" PointX="2.5" PointY="0.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="DB_A3F19C_producccionModel1.rolesoperaciones" Width="1.5" PointX="4.625" PointY="0.5" IsExpanded="true" />
+        <AssociationConnector Association="DB_A3F19C_producccionModel1.empleados_puestos_fk" ManuallyRouted="false" />
+        <AssociationConnector Association="DB_A3F19C_producccionModel1.operaciones_modulos_fk" ManuallyRouted="false" />
+        <AssociationConnector Association="DB_A3F19C_producccionModel1.rolesoperaciones_operaciones_fk" ManuallyRouted="false" />
+        <AssociationConnector Association="DB_A3F19C_producccionModel1.rolesoperaciones_rol_fk" ManuallyRouted="false" />
+      </Diagram>
+    </edmx:Diagrams>
+  </edmx:Designer>
+</edmx:Edmx>

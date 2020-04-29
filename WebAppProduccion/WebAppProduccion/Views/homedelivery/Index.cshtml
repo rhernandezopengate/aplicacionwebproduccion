@@ -1,0 +1,120 @@
+﻿
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_LayoutHomeDelivery.cshtml";
+}
+
+<div class="row top_tiles">
+    <div class="animated flipInY col-lg-3 col-md-3 col-sm-6 col-xs-12">
+        <div class="tile-stats">
+            <div class="icon"><i class="fa fa-unlock"></i></div>
+            <div class="count">@ViewBag.FoliosWaldosAbiertos</div>
+            <h3>Folios Abiertos</h3>
+        </div>
+    </div>
+    <div class="animated flipInY col-lg-3 col-md-3 col-sm-6 col-xs-12">
+        <div class="tile-stats">
+            <div class="icon"><i class="fa fa-lock"></i></div>
+            <div class="count">@ViewBag.FoliosWaldosCerrados</div>
+            <h3>Folios Cerrados</h3>
+        </div>
+    </div>
+    <div class="animated flipInY col-lg-3 col-md-3 col-sm-6 col-xs-12">
+        <div class="tile-stats">
+            <div class="icon"><i class="fa fa-cube"></i></div>
+            <div class="count">@ViewBag.TotalCajasWaldos</div>
+            <h3>Total de Folios</h3>
+        </div>
+    </div>
+    <div class="animated flipInY col-lg-3 col-md-3 col-sm-6 col-xs-12">
+        <div class="tile-stats">
+            <div class="icon"><i class="fa fa-cubes"></i></div>
+            <div class="count">@ViewBag.TotalPaquetesWaldos</div>
+            <h3>Total de Paquetes</h3>
+        </div>
+    </div>
+</div>
+
+<div class="x_panel">  
+    <div class="x_content">
+        <div class="col-md-3 col-sm-6 col-xs-12">
+            <div>
+                <div class="x_title">
+                    <h2>TOP PICKERS</h2>
+                    <div class="clearfix"></div>
+                </div>
+                <ul class="list-unstyled top_profiles scroll-view">
+                    @foreach (var item in ViewBag.ResumenPickers)
+                    {
+                        <li class="media event">
+                            <a class="pull-left border-aero profile_thumb">
+                                <i class="fa fa-user aero"></i>
+                            </a>
+                            <div class="media-body">
+                                <a class="title" href="#"> @item.Nombre </a>
+                                <p><strong>@item.CantidadPiezas</strong> Piezas Surtidas </p>
+                                <p><strong>@item.CantidadPaquetes</strong> Paquetes Surtidos </p>
+                            </div>
+                        </li>
+                    }
+                </ul>
+            </div>
+            <br />
+            <br />
+            <br />
+            <br />
+            <br />
+            <br />
+            <br />
+            <br />
+        </div>
+
+        <div class="col-md-3 col-sm-6 col-xs-12">
+            <div>
+                <div class="x_title">
+                    <h2>TOP AUDITORES</h2>
+                    <div class="clearfix"></div>
+                </div>
+                <ul class="list-unstyled top_profiles scroll-view">
+                    @foreach (var item in ViewBag.ResumenAuditores)
+                    {
+                        <li class="media event">
+                            <a class="pull-left border-aero profile_thumb">
+                                <i class="fa fa-user aero"></i>
+                            </a>
+                            <div class="media-body">
+                                <a class="title" href="#"> @item.Nombre </a>
+                                <p><strong>@item.CantidadPiezas</strong> Piezas Surtidas </p>
+                                <p><strong>@item.CantidadPaquetes</strong> Paquetes Surtidos </p>
+                            </div>
+                        </li>
+                    }
+                </ul>
+            </div>
+        </div>
+
+        <div class="col-md-6 col-sm-12 col-xs-12">
+            <div id="chartContainer" style="height: 370px; width: 100%;"></div>
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+    <script src="https://canvasjs.com/assets/script/canvasjs.min.js"></script>
+    <script type="text/javascript">
+        window.onload = function () {
+            var chart = new CanvasJS.Chart("chartContainer",{
+                animationEnabled: true,
+                title: {
+                    text: "PRODUCTIVIDAD POR PICKER"
+                },
+                data: [{
+                    type: "column",
+                    indexLabelFontSize: 12,
+                    dataPoints: @Html.Raw(ViewBag.DataPoints),
+                }]
+            });
+            chart.render();
+        }
+    </script>
+}

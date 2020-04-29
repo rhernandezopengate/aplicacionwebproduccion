@@ -1,0 +1,118 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="DB_A3F19C_producccionModel1.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+  <EntityType Name="empleados">
+    <Key>
+      <PropertyRef Name="id" />
+    </Key>
+    <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="FechaAlta" Type="datetime" />
+    <Property Name="Nombres" Type="varchar" MaxLength="100" />
+    <Property Name="ApellidoPaterno" Type="varchar" MaxLength="50" />
+    <Property Name="ApellidoMaterno" Type="varchar" MaxLength="50" />
+    <Property Name="Email" Type="varchar" MaxLength="100" />
+    <Property Name="FechaEntrada" Type="date" />
+    <Property Name="Puestos_Id" Type="int" Nullable="false" />
+  </EntityType>
+  <EntityType Name="modulos">
+    <Key>
+      <PropertyRef Name="id" />
+    </Key>
+    <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="descripcion" Type="varchar" MaxLength="50" />
+  </EntityType>
+  <EntityType Name="operaciones">
+    <Key>
+      <PropertyRef Name="id" />
+    </Key>
+    <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Nombre" Type="varchar" MaxLength="50" />
+    <Property Name="Modulos_Id" Type="int" Nullable="false" />
+  </EntityType>
+  <EntityType Name="rol">
+    <Key>
+      <PropertyRef Name="id" />
+    </Key>
+    <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Nombre" Type="varchar" MaxLength="50" Nullable="false" />
+    <Property Name="descripcion" Type="varchar" MaxLength="200" />
+  </EntityType>
+  <EntityType Name="rolesoperaciones">
+    <Key>
+      <PropertyRef Name="id" />
+    </Key>
+    <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Rol_Id" Type="int" Nullable="false" />
+    <Property Name="Operaciones_Id" Type="int" Nullable="false" />
+  </EntityType>
+  <Association Name="empleados_puestos_fk">
+    <End Role="rol" Type="Self.rol" Multiplicity="1" />
+    <End Role="empleados" Type="Self.empleados" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="rol">
+        <PropertyRef Name="id" />
+      </Principal>
+      <Dependent Role="empleados">
+        <PropertyRef Name="Puestos_Id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="operaciones_modulos_fk">
+    <End Role="modulos" Type="Self.modulos" Multiplicity="1" />
+    <End Role="operaciones" Type="Self.operaciones" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="modulos">
+        <PropertyRef Name="id" />
+      </Principal>
+      <Dependent Role="operaciones">
+        <PropertyRef Name="Modulos_Id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="rolesoperaciones_operaciones_fk">
+    <End Role="operaciones" Type="Self.operaciones" Multiplicity="1" />
+    <End Role="rolesoperaciones" Type="Self.rolesoperaciones" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="operaciones">
+        <PropertyRef Name="id" />
+      </Principal>
+      <Dependent Role="rolesoperaciones">
+        <PropertyRef Name="Operaciones_Id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="rolesoperaciones_rol_fk">
+    <End Role="rol" Type="Self.rol" Multiplicity="1" />
+    <End Role="rolesoperaciones" Type="Self.rolesoperaciones" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="rol">
+        <PropertyRef Name="id" />
+      </Principal>
+      <Dependent Role="rolesoperaciones">
+        <PropertyRef Name="Rol_Id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <EntityContainer Name="DB_A3F19C_producccionModel1StoreContainer">
+    <EntitySet Name="empleados" EntityType="Self.empleados" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="modulos" EntityType="Self.modulos" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="operaciones" EntityType="Self.operaciones" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="rol" EntityType="Self.rol" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="rolesoperaciones" EntityType="Self.rolesoperaciones" Schema="dbo" store:Type="Tables" />
+    <AssociationSet Name="empleados_puestos_fk" Association="Self.empleados_puestos_fk">
+      <End Role="rol" EntitySet="rol" />
+      <End Role="empleados" EntitySet="empleados" />
+    </AssociationSet>
+    <AssociationSet Name="operaciones_modulos_fk" Association="Self.operaciones_modulos_fk">
+      <End Role="modulos" EntitySet="modulos" />
+      <End Role="operaciones" EntitySet="operaciones" />
+    </AssociationSet>
+    <AssociationSet Name="rolesoperaciones_operaciones_fk" Association="Self.rolesoperaciones_operaciones_fk">
+      <End Role="operaciones" EntitySet="operaciones" />
+      <End Role="rolesoperaciones" EntitySet="rolesoperaciones" />
+    </AssociationSet>
+    <AssociationSet Name="rolesoperaciones_rol_fk" Association="Self.rolesoperaciones_rol_fk">
+      <End Role="rol" EntitySet="rol" />
+      <End Role="rolesoperaciones" EntitySet="rolesoperaciones" />
+    </AssociationSet>
+  </EntityContainer>
+</Schema>

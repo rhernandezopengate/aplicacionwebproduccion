@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+ <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <!-- Diagram content (shape and connector positions) -->
+    <edmx:Diagrams>
+      <Diagram DiagramId="523cd7b625c64631a957fb3146d14ac2" Name="Diagram1">
+        <EntityTypeShape EntityType="DB_A3F19C_producccionModel2.contactosproveedores" Width="1.5" PointX="0.5" PointY="0.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="DB_A3F19C_producccionModel2.direccionproveedor" Width="1.5" PointX="0.5" PointY="2.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="DB_A3F19C_producccionModel2.informacionbancaria" Width="1.5" PointX="0.5" PointY="5.625" IsExpanded="true" />
+        <EntityTypeShape EntityType="DB_A3F19C_producccionModel2.credito" Width="1.5" PointX="2.875" PointY="0.5" />
+        <EntityTypeShape EntityType="DB_A3F19C_producccionModel2.monedafacturacion" Width="1.5" PointX="2.875" PointY="2.875" />
+        <EntityTypeShape EntityType="DB_A3F19C_producccionModel2.categoriaproveedor" Width="1.5" PointX="2.875" PointY="5.25" />
+        <EntityTypeShape EntityType="DB_A3F19C_producccionModel2.proveedores" Width="1.5" PointX="5.125" PointY="1.25" />
+        <EntityTypeShape EntityType="DB_A3F19C_producccionModel2.statusproveedor" Width="1.5" PointX="2.875" PointY="7.75" />
+        <AssociationConnector Association="DB_A3F19C_producccionModel2.proveedores_categoriaproveedor_fk" />
+        <AssociationConnector Association="DB_A3F19C_producccionModel2.contactosproveedores_proveedores_fk" />
+        <AssociationConnector Association="DB_A3F19C_producccionModel2.proveedores_credito_fk" />
+        <AssociationConnector Association="DB_A3F19C_producccionModel2.direccionproveedor_proveedores_fk" />
+        <AssociationConnector Association="DB_A3F19C_producccionModel2.informacionbancaria_proveedores_fk" />
+        <AssociationConnector Association="DB_A3F19C_producccionModel2.proveedores_monedafacturacion_fk" />
+        <AssociationConnector Association="DB_A3F19C_producccionModel2.proveedores_statusproveedor_fk" />
+      </Diagram>
+    </edmx:Diagrams>
+  </edmx:Designer>
+</edmx:Edmx>

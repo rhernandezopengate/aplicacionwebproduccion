@@ -1,0 +1,74 @@
+﻿
+@{
+    ViewBag.Title = "Plain";
+    Layout = "~/Views/Shared/_LayoutSistemas.cshtml";
+}
+
+<h2>Plain</h2>
+
+<div class="x_panel">
+    <div class="x_title">
+        <h2> Modulo <small>Index</small></h2> &nbsp;&nbsp;&nbsp;
+        <a class="btn btn-success" href="@Url.Action("Create")"> <i class="glyphicon glyphicon-plus-sign"></i> Agregar Registros</a>
+        <a class="btn btn-dark" href="@Url.Action("Index")"> <i class="fa fa-reply-all"></i> Regresar</a>
+        <div class="clearfix"></div>
+    </div>
+    <div class="x_content">
+        Add content to the page ...
+    </div>
+</div>
+
+@*Filtros*@
+<div class="well" style="overflow: auto">
+    <div class="col-sm-3">
+        Orden
+        <div class="form-group">
+            <div class="input-group date">
+                <input id="txtOrden" name="txtOrden" class="form-control" autocomplete="off" />
+                <span class="input-group-addon">
+                    <span class="fa fa-print"></span>
+                </span>
+            </div>
+        </div>
+    </div>
+
+    <div class="col-sm-3">
+        Fecha Ordenes
+        <div class="form-group">
+            <div class="input-group date">
+                <input id="fechaOrdenes" name="fechaOrdenes" class="form-control" autocomplete="off" />
+                <span class="input-group-addon">
+                    <span class="fa fa-calendar"></span>
+                </span>
+            </div>
+        </div>
+    </div>
+
+    <div class="col-sm-3">
+        <div class="form-group">
+            Estado Factura
+            <div class="input-group date">
+                <select class="form-control" id="ddlStatus"></select>
+                <span class="input-group-addon">
+                    <span class="fa fa-flag"></span>
+                </span>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+@*Modal*@
+<div class="modal-header text-center">
+    <button type="button" class="close" data-dismiss="modal">
+        <span aria-hidden="true">×</span>
+    </button>
+    <h4 class="modal-title">Editar Modulo</h4>
+</div>
+<div class="modal-body">
+    <p>Modal body text goes here.</p>
+</div>
+<div class="modal-footer">
+    <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
+    <input type="submit" value="Guardar" class="btn btn-default" />
+</div>

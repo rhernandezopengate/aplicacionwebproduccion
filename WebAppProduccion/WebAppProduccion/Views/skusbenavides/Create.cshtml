@@ -1,0 +1,43 @@
+﻿@model WebAppProduccion.Entities.ModulosEscaneos.skusbenavides
+
+@{
+    ViewBag.Title = "Create";
+    Layout = "~/Views/Shared/_LayoutInventarios.cshtml";
+}
+
+@using (Html.BeginForm())
+{
+    @Html.AntiForgeryToken()
+    @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+    <div class="x_panel">
+        <div class="x_title">
+            <h2> SKUS Benavides <small>Crear</small></h2> &nbsp;&nbsp;&nbsp;
+            <a class="btn btn-dark" href="@Url.Action("Index")"> <i class="fa fa-reply-all"></i> Regresar</a>
+            <div class="clearfix"></div>
+        </div>
+        <div class="x_content">
+            <div id="demo-form2" data-parsley-validate="" class="form-horizontal form-label-left" novalidate="">
+                <div class="form-group">
+                    @Html.LabelFor(model => model.codigobarras, htmlAttributes: new { @class = "control-label col-md-3 col-sm-3 col-xs-12" })
+                    <div class="col-md-6 col-sm-6 col-xs-12">
+                        @Html.EditorFor(model => model.codigobarras, new { htmlAttributes = new { @class = "form-control col-md-7 col-xs-12" } })
+                        @Html.ValidationMessageFor(model => model.codigobarras, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+                <div class="form-group">
+                    @Html.LabelFor(model => model.skus_Id, "skus_Id", htmlAttributes: new { @class = "control-label col-md-3 col-sm-3 col-xs-12" })
+                    <div class="col-md-6 col-sm-6 col-xs-12">
+                        @Html.DropDownList("skus_Id", null, htmlAttributes: new { @class = "form-control col-md-7 col-xs-12" })
+                        @Html.ValidationMessageFor(model => model.skus_Id, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+                <div class="ln_solid"></div>
+                <div class="form-group">
+                    <div class="col-md-6 col-sm-6 col-xs-12 col-md-offset-3">
+                        <input type="submit" value="Create" class="btn btn-default" />
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>    
+}

@@ -1,0 +1,65 @@
+﻿@model IEnumerable<WebAppProduccion.Entities.ModulosEscaneos.wl_waldos>
+
+@{
+    ViewBag.Title = "DetalleEnvios";
+    Layout = null;
+}
+
+<div class="modal-header text-center">
+    <button type="button" class="close" data-dismiss="modal">
+        <span aria-hidden="true">×</span>
+    </button>
+    <h2 class="modal-title">Detalle Caja @ViewBag.Caja</h2>
+</div>
+<div class="modal-body">
+    <div class="flex">
+        <ul class="list-inline count2">
+            <li>
+                <h3><label>Folio</label></h3>
+                <span>@ViewBag.Folio</span>
+            </li>
+            <li>
+                <h3><label>Fecha Alta</label></h3>
+                <span>
+                    @ViewBag.Fecha
+                </span>
+            </li>
+            <li>
+                <h3><label>No. Cajas</label></h3>
+                <span>
+                    @ViewBag.CantidadCajas
+                </span>
+            </li>
+        </ul>
+    </div>
+    <table id="tblDetEnvio" class="table table-bordered" width="100%">
+        <thead>
+            <tr>
+                <th>Caja</th>
+                <th>Guia</th>
+                <th>Tienda</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var item in Model)
+            {
+                <tr>
+                    <td>@item.caja</td>
+                    <td>@item.guia</td>
+                    <td>@item.tienda</td>
+                </tr>
+            }
+        </tbody>
+    </table>
+</div>
+<div class="modal-footer">
+    <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
+</div>
+
+<script type="text/javascript">
+    $(document).ready(function () {
+        table = $('#tblDetEnvio').DataTable({
+            "responsive": true,
+        });
+    });
+</script>

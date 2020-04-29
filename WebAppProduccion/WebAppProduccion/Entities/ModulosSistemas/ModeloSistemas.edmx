@@ -1,0 +1,329 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+      <Schema Namespace="DB_A3F19C_producccionModel1.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="empleados">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="FechaAlta" Type="datetime" />
+          <Property Name="Nombres" Type="varchar" MaxLength="100" />
+          <Property Name="ApellidoPaterno" Type="varchar" MaxLength="50" />
+          <Property Name="ApellidoMaterno" Type="varchar" MaxLength="50" />
+          <Property Name="Email" Type="varchar" MaxLength="100" />
+          <Property Name="FechaEntrada" Type="date" />
+          <Property Name="Puestos_Id" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="modulos">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="descripcion" Type="varchar" MaxLength="50" />
+        </EntityType>
+        <EntityType Name="operaciones">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Nombre" Type="varchar" MaxLength="50" />
+          <Property Name="Modulos_Id" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="rol">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Nombre" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="descripcion" Type="varchar" MaxLength="200" />
+        </EntityType>
+        <EntityType Name="rolesoperaciones">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Rol_Id" Type="int" Nullable="false" />
+          <Property Name="Operaciones_Id" Type="int" Nullable="false" />
+        </EntityType>
+        <Association Name="empleados_puestos_fk">
+          <End Role="rol" Type="Self.rol" Multiplicity="1" />
+          <End Role="empleados" Type="Self.empleados" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="rol">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="empleados">
+              <PropertyRef Name="Puestos_Id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="operaciones_modulos_fk">
+          <End Role="modulos" Type="Self.modulos" Multiplicity="1" />
+          <End Role="operaciones" Type="Self.operaciones" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="modulos">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="operaciones">
+              <PropertyRef Name="Modulos_Id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="rolesoperaciones_operaciones_fk">
+          <End Role="operaciones" Type="Self.operaciones" Multiplicity="1" />
+          <End Role="rolesoperaciones" Type="Self.rolesoperaciones" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="operaciones">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="rolesoperaciones">
+              <PropertyRef Name="Operaciones_Id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="rolesoperaciones_rol_fk">
+          <End Role="rol" Type="Self.rol" Multiplicity="1" />
+          <End Role="rolesoperaciones" Type="Self.rolesoperaciones" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="rol">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="rolesoperaciones">
+              <PropertyRef Name="Rol_Id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="DB_A3F19C_producccionModel1StoreContainer">
+          <EntitySet Name="empleados" EntityType="Self.empleados" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="modulos" EntityType="Self.modulos" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="operaciones" EntityType="Self.operaciones" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="rol" EntityType="Self.rol" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="rolesoperaciones" EntityType="Self.rolesoperaciones" Schema="dbo" store:Type="Tables" />
+          <AssociationSet Name="empleados_puestos_fk" Association="Self.empleados_puestos_fk">
+            <End Role="rol" EntitySet="rol" />
+            <End Role="empleados" EntitySet="empleados" />
+          </AssociationSet>
+          <AssociationSet Name="operaciones_modulos_fk" Association="Self.operaciones_modulos_fk">
+            <End Role="modulos" EntitySet="modulos" />
+            <End Role="operaciones" EntitySet="operaciones" />
+          </AssociationSet>
+          <AssociationSet Name="rolesoperaciones_operaciones_fk" Association="Self.rolesoperaciones_operaciones_fk">
+            <End Role="operaciones" EntitySet="operaciones" />
+            <End Role="rolesoperaciones" EntitySet="rolesoperaciones" />
+          </AssociationSet>
+          <AssociationSet Name="rolesoperaciones_rol_fk" Association="Self.rolesoperaciones_rol_fk">
+            <End Role="rol" EntitySet="rol" />
+            <End Role="rolesoperaciones" EntitySet="rolesoperaciones" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="DB_A3F19C_producccionModel1" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="empleados">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="FechaAlta" Type="DateTime" Precision="3" />
+          <Property Name="Nombres" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="ApellidoPaterno" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="ApellidoMaterno" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="Email" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="FechaEntrada" Type="DateTime" Precision="0" />
+          <Property Name="Puestos_Id" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="rol" Relationship="Self.empleados_puestos_fk" FromRole="empleados" ToRole="rol" />
+        </EntityType>
+        <EntityType Name="modulos">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="descripcion" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="operaciones" Relationship="Self.operaciones_modulos_fk" FromRole="modulos" ToRole="operaciones" />
+        </EntityType>
+        <EntityType Name="operaciones">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Nombre" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="Modulos_Id" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="modulos" Relationship="Self.operaciones_modulos_fk" FromRole="operaciones" ToRole="modulos" />
+          <NavigationProperty Name="rolesoperaciones" Relationship="Self.rolesoperaciones_operaciones_fk" FromRole="operaciones" ToRole="rolesoperaciones" />
+        </EntityType>
+        <EntityType Name="rol">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Nombre" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="descripcion" Type="String" MaxLength="200" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="empleados" Relationship="Self.empleados_puestos_fk" FromRole="rol" ToRole="empleados" />
+          <NavigationProperty Name="rolesoperaciones" Relationship="Self.rolesoperaciones_rol_fk" FromRole="rol" ToRole="rolesoperaciones" />
+        </EntityType>
+        <EntityType Name="rolesoperaciones">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Rol_Id" Type="Int32" Nullable="false" />
+          <Property Name="Operaciones_Id" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="operaciones" Relationship="Self.rolesoperaciones_operaciones_fk" FromRole="rolesoperaciones" ToRole="operaciones" />
+          <NavigationProperty Name="rol" Relationship="Self.rolesoperaciones_rol_fk" FromRole="rolesoperaciones" ToRole="rol" />
+        </EntityType>
+        <Association Name="empleados_puestos_fk">
+          <End Role="rol" Type="Self.rol" Multiplicity="1" />
+          <End Role="empleados" Type="Self.empleados" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="rol">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="empleados">
+              <PropertyRef Name="Puestos_Id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="operaciones_modulos_fk">
+          <End Role="modulos" Type="Self.modulos" Multiplicity="1" />
+          <End Role="operaciones" Type="Self.operaciones" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="modulos">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="operaciones">
+              <PropertyRef Name="Modulos_Id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="rolesoperaciones_operaciones_fk">
+          <End Role="operaciones" Type="Self.operaciones" Multiplicity="1" />
+          <End Role="rolesoperaciones" Type="Self.rolesoperaciones" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="operaciones">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="rolesoperaciones">
+              <PropertyRef Name="Operaciones_Id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="rolesoperaciones_rol_fk">
+          <End Role="rol" Type="Self.rol" Multiplicity="1" />
+          <End Role="rolesoperaciones" Type="Self.rolesoperaciones" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="rol">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="rolesoperaciones">
+              <PropertyRef Name="Rol_Id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="DB_A3F19C_producccionEntities1" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="empleados" EntityType="Self.empleados" />
+          <EntitySet Name="modulos" EntityType="Self.modulos" />
+          <EntitySet Name="operaciones" EntityType="Self.operaciones" />
+          <EntitySet Name="rol" EntityType="Self.rol" />
+          <EntitySet Name="rolesoperaciones" EntityType="Self.rolesoperaciones" />
+          <AssociationSet Name="empleados_puestos_fk" Association="Self.empleados_puestos_fk">
+            <End Role="rol" EntitySet="rol" />
+            <End Role="empleados" EntitySet="empleados" />
+          </AssociationSet>
+          <AssociationSet Name="operaciones_modulos_fk" Association="Self.operaciones_modulos_fk">
+            <End Role="modulos" EntitySet="modulos" />
+            <End Role="operaciones" EntitySet="operaciones" />
+          </AssociationSet>
+          <AssociationSet Name="rolesoperaciones_operaciones_fk" Association="Self.rolesoperaciones_operaciones_fk">
+            <End Role="operaciones" EntitySet="operaciones" />
+            <End Role="rolesoperaciones" EntitySet="rolesoperaciones" />
+          </AssociationSet>
+          <AssociationSet Name="rolesoperaciones_rol_fk" Association="Self.rolesoperaciones_rol_fk">
+            <End Role="rol" EntitySet="rol" />
+            <End Role="rolesoperaciones" EntitySet="rolesoperaciones" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="DB_A3F19C_producccionModel1StoreContainer" CdmEntityContainer="DB_A3F19C_producccionEntities1">
+          <EntitySetMapping Name="empleados">
+            <EntityTypeMapping TypeName="DB_A3F19C_producccionModel1.empleados">
+              <MappingFragment StoreEntitySet="empleados">
+                <ScalarProperty Name="id" ColumnName="id" />
+                <ScalarProperty Name="FechaAlta" ColumnName="FechaAlta" />
+                <ScalarProperty Name="Nombres" ColumnName="Nombres" />
+                <ScalarProperty Name="ApellidoPaterno" ColumnName="ApellidoPaterno" />
+                <ScalarProperty Name="ApellidoMaterno" ColumnName="ApellidoMaterno" />
+                <ScalarProperty Name="Email" ColumnName="Email" />
+                <ScalarProperty Name="FechaEntrada" ColumnName="FechaEntrada" />
+                <ScalarProperty Name="Puestos_Id" ColumnName="Puestos_Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="modulos">
+            <EntityTypeMapping TypeName="DB_A3F19C_producccionModel1.modulos">
+              <MappingFragment StoreEntitySet="modulos">
+                <ScalarProperty Name="id" ColumnName="id" />
+                <ScalarProperty Name="descripcion" ColumnName="descripcion" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="operaciones">
+            <EntityTypeMapping TypeName="DB_A3F19C_producccionModel1.operaciones">
+              <MappingFragment StoreEntitySet="operaciones">
+                <ScalarProperty Name="id" ColumnName="id" />
+                <ScalarProperty Name="Nombre" ColumnName="Nombre" />
+                <ScalarProperty Name="Modulos_Id" ColumnName="Modulos_Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="rol">
+            <EntityTypeMapping TypeName="DB_A3F19C_producccionModel1.rol">
+              <MappingFragment StoreEntitySet="rol">
+                <ScalarProperty Name="id" ColumnName="id" />
+                <ScalarProperty Name="Nombre" ColumnName="Nombre" />
+                <ScalarProperty Name="descripcion" ColumnName="descripcion" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="rolesoperaciones">
+            <EntityTypeMapping TypeName="DB_A3F19C_producccionModel1.rolesoperaciones">
+              <MappingFragment StoreEntitySet="rolesoperaciones">
+                <ScalarProperty Name="id" ColumnName="id" />
+                <ScalarProperty Name="Rol_Id" ColumnName="Rol_Id" />
+                <ScalarProperty Name="Operaciones_Id" ColumnName="Operaciones_Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="false" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="Ninguno" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>

@@ -16,7 +16,7 @@ namespace WebAppProduccion.Controllers
     public class AccountController : Controller
     {
         private ApplicationSignInManager _signInManager;
-        private ApplicationUserManager _userManager;
+        private ApplicationUserManager _userManager;       
 
         public AccountController()
         {
@@ -79,7 +79,8 @@ namespace WebAppProduccion.Controllers
             switch (result)
             {
                 case SignInStatus.Success:
-                    return RedirectToLocal(returnUrl);
+                    Session["ua"] = model.Email;
+                    return RedirectToLocal(returnUrl);                    
                 case SignInStatus.LockedOut:
                     return View("Lockout");
                 case SignInStatus.RequiresVerification:
@@ -123,7 +124,7 @@ namespace WebAppProduccion.Controllers
             var result = await SignInManager.TwoFactorSignInAsync(model.Provider, model.Code, isPersistent:  model.RememberMe, rememberBrowser: model.RememberBrowser);
             switch (result)
             {
-                case SignInStatus.Success:
+                case SignInStatus.Success:                    
                     return RedirectToLocal(model.ReturnUrl);
                 case SignInStatus.LockedOut:
                     return View("Lockout");

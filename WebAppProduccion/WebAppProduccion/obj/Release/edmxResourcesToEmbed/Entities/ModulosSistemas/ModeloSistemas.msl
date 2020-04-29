@@ -1,0 +1,54 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+  <EntityContainerMapping StorageEntityContainer="DB_A3F19C_producccionModel1StoreContainer" CdmEntityContainer="DB_A3F19C_producccionEntities1">
+    <EntitySetMapping Name="empleados">
+      <EntityTypeMapping TypeName="DB_A3F19C_producccionModel1.empleados">
+        <MappingFragment StoreEntitySet="empleados">
+          <ScalarProperty Name="id" ColumnName="id" />
+          <ScalarProperty Name="FechaAlta" ColumnName="FechaAlta" />
+          <ScalarProperty Name="Nombres" ColumnName="Nombres" />
+          <ScalarProperty Name="ApellidoPaterno" ColumnName="ApellidoPaterno" />
+          <ScalarProperty Name="ApellidoMaterno" ColumnName="ApellidoMaterno" />
+          <ScalarProperty Name="Email" ColumnName="Email" />
+          <ScalarProperty Name="FechaEntrada" ColumnName="FechaEntrada" />
+          <ScalarProperty Name="Puestos_Id" ColumnName="Puestos_Id" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="modulos">
+      <EntityTypeMapping TypeName="DB_A3F19C_producccionModel1.modulos">
+        <MappingFragment StoreEntitySet="modulos">
+          <ScalarProperty Name="id" ColumnName="id" />
+          <ScalarProperty Name="descripcion" ColumnName="descripcion" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="operaciones">
+      <EntityTypeMapping TypeName="DB_A3F19C_producccionModel1.operaciones">
+        <MappingFragment StoreEntitySet="operaciones">
+          <ScalarProperty Name="id" ColumnName="id" />
+          <ScalarProperty Name="Nombre" ColumnName="Nombre" />
+          <ScalarProperty Name="Modulos_Id" ColumnName="Modulos_Id" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="rol">
+      <EntityTypeMapping TypeName="DB_A3F19C_producccionModel1.rol">
+        <MappingFragment StoreEntitySet="rol">
+          <ScalarProperty Name="id" ColumnName="id" />
+          <ScalarProperty Name="Nombre" ColumnName="Nombre" />
+          <ScalarProperty Name="descripcion" ColumnName="descripcion" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="rolesoperaciones">
+      <EntityTypeMapping TypeName="DB_A3F19C_producccionModel1.rolesoperaciones">
+        <MappingFragment StoreEntitySet="rolesoperaciones">
+          <ScalarProperty Name="id" ColumnName="id" />
+          <ScalarProperty Name="Rol_Id" ColumnName="Rol_Id" />
+          <ScalarProperty Name="Operaciones_Id" ColumnName="Operaciones_Id" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+  </EntityContainerMapping>
+</Mapping>

@@ -1,0 +1,246 @@
+﻿
+@{
+    ViewBag.Title = "CrearKit";
+    Layout = "~/Views/Shared/_LayoutHomeDelivery.cshtml";
+}
+
+<div class="x_panel">
+    <div class="x_title">
+        <h2> Kits <small> Create </small></h2> &nbsp;&nbsp;&nbsp;
+        <button id="GuardarKit" class="btn btn-default"><i class="fa fa-floppy-o"></i> Guardar Informacion</button>
+        <a href="@Url.Action("Index")" class="btn btn-danger"><i class="fa fa-close"></i> Regresar</a>
+        <div class="clearfix"></div>
+    </div>
+    <div class="x_content">
+        <div class="" role="tabpanel" data-example-id="togglable-tabs">
+            <ul id="myTab" class="nav nav-tabs bar_tabs" role="tablist">
+                <li role="presentation" class="active">
+                    <a href="#tab_content1" id="home-tab" role="tab" data-toggle="tab" aria-expanded="true">Informacion General</a>
+                </li>
+                <li role="presentation" class="">
+                    <a href="#tab_content2" role="tab" id="profile-tab" data-toggle="tab" aria-expanded="false">Detalle Kit</a>
+                </li>
+            </ul>
+            <div id="myTabContent" class="tab-content">
+                <div role="tabpanel" class="tab-pane fade active in" id="tab_content1" aria-labelledby="home-tab">
+                    <div id="demo-form2" data-parsley-validate="" class="form-horizontal form-label-left" novalidate="">
+                        <div class="form-group">
+                            <label class="control-label col-md-3 col-sm-3 col-xs-12" for="first-name">
+                                Descripcion <span class="required">*</span>
+                            </label>
+                            <div class="col-md-6 col-sm-6 col-xs-12">
+                                <input type="text" id="txtDescripcion" required="required" class="form-control col-md-7 col-xs-12">
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="control-label col-md-3 col-sm-3 col-xs-12" for="last-name">
+                                Codigo de Barras <span class="required">*</span>
+                            </label>
+                            <div class="col-md-6 col-sm-6 col-xs-12">
+                                <input type="text" id="txtCodigoBarras" required="required" class="form-control col-md-7 col-xs-12">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div role="tabpanel" class="tab-pane fade" id="tab_content2" aria-labelledby="profile-tab">
+                    <div id="demo-form2" data-parsley-validate="" class="form-horizontal form-label-left" novalidate="">
+                        <div class="form-group">
+                            <label class="control-label col-md-3 col-sm-3 col-xs-12" for="last-name">
+                                Cantidad SKU <span class="required">*</span>
+                            </label>
+                            <div class="col-md-6 col-sm-6 col-xs-12">
+                                <input id="txtCantidadSKU" class="form-control col-md-7 col-xs-12" type="text" />
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="control-label col-md-3 col-sm-3 col-xs-12" for="first-name">
+                                SKU <span class="required">*</span>
+                            </label>
+                            <div class="col-md-6 col-sm-6 col-xs-12">
+                                <input type="text" id="txtSKUSearch" class="form-control col-md-7 col-xs-12" />
+                                <input id="hfCustomer" type="hidden" />
+                            </div>
+                        </div>
+                    </div>
+
+                    <button id="agregarSKU" class="btn btn-primary"><i class="fa fa-plus-circle"></i> Agregar Elemento</button>
+                    <table id="detalleSKUS" class="table table-bordered">
+                        <thead>
+                            <tr>
+                                <th>SKU</th>
+                                <th>Cantidad</th>
+                                <th></th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+@section Styles {
+    <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
+    <link href="~/Content/toastr.min.css" rel="stylesheet" />
+
+    <style type="text/css">
+        ul.ui-autocomplete {
+            z-index: 1100;
+        }
+
+        .ui-autocomplete {
+            max-height: 200px;
+            overflow-y: scroll;
+            /* prevent horizontal scrollbar */
+            overflow-x: hidden;
+        }
+    </style>    
+}
+
+
+@section Scripts {
+    <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+    <script src="~/Scripts/toastr.min.js"></script>
+
+    <script type="text/javascript">
+
+        $(function () {
+            $("#txtSKUSearch").autocomplete({
+                source: function (request, response) {
+                    $.ajax({
+                        url: '/skus/AutoComplete/',
+                        data: "{ 'prefix': '" + request.term + "'}",
+                        dataType: "json",
+                        type: "POST",
+                        contentType: "application/json; charset=utf-8",
+                        success: function (data) {
+                            response($.map(data, function (item) {
+                                return item;
+                            }));
+                        },
+                        error: function (response) {
+                            alert(response.responseText);
+                        },
+                        failure: function (response) {
+                            alert(response.responseText);
+                        }
+                    });
+                },
+                change: function (event, ui) { },
+                select: function (e, i) {
+                    $("#hfCustomer").val(i.item.val);
+                },
+                minLength: 0
+            }).focus(function () {
+                $(this).autocomplete("search");
+            });
+        });
+
+        $("#agregarSKU").click(function (e) {
+            e.preventDefault();
+
+            var sku = $("#txtSKUSearch").val(),
+                total = $("#txtCantidadSKU").val(),
+                detalleTabla = $("#detalleSKUS tbody");
+
+            var validar = true;
+
+            $.each($("#detalleSKUS tbody tr"), function () {
+                var skutabla = $(this).find('td:eq(0)').html();
+                if (skutabla === sku) {
+                    toastr.error('Este SKU ya ha sido agregado.');
+                    validar = false;
+                }
+            });
+
+            if (validar) {
+                var skuAgregado = '<tr><td>' + sku + '</td><td>' + total + '</td><td><a data-itemId="0" href="#" class="btn btn-danger"><i class="glyphicon glyphicon-trash"></i></a></td></tr>';
+                detalleTabla.append(skuAgregado);
+                LimpiarCampos();
+            }
+            else {
+                LimpiarCampos();
+            }
+        });
+
+        $(document).on('click', 'a.btn-danger', function (e) {
+            var $self = $(this);
+            if ($(this).attr('data-itemId') == "0") {
+                $(this).parents('tr').css("background-color", "#ff6347").fadeOut(800, function () {
+                    $(this).remove();
+                });
+            }
+        });
+
+        function LimpiarCampos() {
+            $("#txtSKUSearch").val("");
+            $("#txtCantidadSKU").val("");
+            $("#txtCantidadSKU").focus();
+        }
+
+        $("#GuardarKit").click(function (e) {
+            e.preventDefault();
+
+            var NombreKit = $("#txtDescripcion").val();
+            var CodigoBarrasKit = $("#txtCodigoBarras").val();
+
+
+            if (NombreKit === '') {
+                toastr.error('El Kit debe tener una descripcion.');
+            }
+            else if (CodigoBarrasKit === '') {
+                toastr.error('El Kit debe tener un codigo de barras.');
+            }
+            else {
+
+                var skusKit = [];
+
+                skusKit.length = 0;
+
+                $.each($("#detalleSKUS tbody tr"), function () {
+                    skusKit.push({
+                        sku: $(this).find('td:eq(0)').html(),
+                        Cantidad: $(this).find('td:eq(1)').html(),                        
+                    });
+                });
+
+                var data = JSON.stringify({
+                    descripcion: $("#txtDescripcion").val(),
+                    codigobarras: $("#txtCodigoBarras").val(),                    
+                    detalleKit: skusKit
+                });
+
+                $.when(guardarKit(data)).then(function (response) {
+                    console.log(response);
+                }).fail(function (err) {
+                    console.log(err);
+                });
+            }
+        });
+
+
+        function guardarKit(data) {
+            return $.ajax({
+                contentType: 'application/json; charset=utf-8',
+                dataType: 'json',
+                type: 'POST',
+                url: "/kits/CrearKitDetalle",
+                data: data,
+                success: function (result) {
+                    if (result.respuesta) {
+                        window.location = '/kits/Index';
+                    }
+                    else {
+                        toastr.error('Ha ocurrido un error al guardar.');
+                    }                
+                },
+                error: function () {
+                    toastr.error('Ha ocurrido un error al guardar.');
+                }
+            });
+        }
+
+    </script>
+}

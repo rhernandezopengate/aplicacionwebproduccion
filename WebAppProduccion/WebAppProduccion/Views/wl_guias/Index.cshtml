@@ -1,0 +1,189 @@
+﻿
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_LayoutHomeDelivery.cshtml";
+}
+
+<div class="x_panel">
+    <div class="x_title">
+        <h2> Guias <small>Index</small></h2> &nbsp;&nbsp;&nbsp;
+        <div class="clearfix"></div>
+    </div>
+    <div class="x_content">
+        <div class="well" style="overflow: auto">
+            <div class="col-sm-3">
+                Guia
+                <div class="form-group">
+                    <div class="input-group date">
+                        <input id="txtGuia" name="txtGuia" class="form-control" autocomplete="off" />
+                        <span class="input-group-addon">
+                            <span class="fa fa-print"></span>
+                        </span>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <table id="table" class="table table-bordered" width="100%">
+            <thead>
+                <tr>
+                    <th>
+                        Id
+                    </th>
+                    <th>
+                        Guia
+                    </th>
+                    <th></th>
+                </tr>
+            </thead>
+        </table>
+    </div>
+</div>
+<div id="MyModal" class="modal fade bs-example-modal-lg">
+    <div class="modal-dialog modal-lg" id="mdialTamanio">
+        <div class="modal-content">
+            <div id="MyModalContent"></div>
+        </div>
+    </div>
+</div>
+
+@section Styles {
+    <!-- Datatables -->
+    <link href="~/vendors/datatables.net-bs/css/dataTables.bootstrap.min.css" rel="stylesheet">
+    <link href="https://cdn.datatables.net/buttons/1.5.2/css/buttons.dataTables.min.css" rel="stylesheet" />
+    <link href="https://cdn.datatables.net/responsive/2.2.3/css/responsive.dataTables.min.css" rel="stylesheet" />
+    <link href="~/Content/toastr.css" rel="stylesheet" />
+}
+
+@section Scripts {
+    <!-- Datatables -->
+    <script src="https://cdn.datatables.net/1.10.19/js/jquery.dataTables.min.js"></script>
+    <script src="https://cdn.datatables.net/buttons/1.5.4/js/dataTables.buttons.min.js"></script>
+    <script src="https://cdn.datatables.net/responsive/2.2.3/js/dataTables.responsive.min.js"></script>
+    <script src="https://cdn.datatables.net/buttons/1.4.0/js/buttons.flash.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.1.3/jszip.min.js"></script>
+    <script src="https://cdn.rawgit.com/bpampuch/pdfmake/0.1.27/build/pdfmake.min.js"></script>
+    <script src="https://cdn.rawgit.com/bpampuch/pdfmake/0.1.27/build/vfs_fonts.js"></script>
+    <script src="https://cdn.datatables.net/buttons/1.4.0/js/buttons.html5.min.js"></script>
+    <script src="https://cdn.datatables.net/buttons/1.4.0/js/buttons.print.min.js"></script>
+    <script src="https://cdn.datatables.net/1.10.20/js/dataTables.bootstrap.min.js"></script>
+    <script src="~/Scripts/toastr.min.js"></script>
+
+    <script type="text/javascript">
+        $(document).ready(function () {
+            table = $('#table').DataTable({
+                "order": [[0, "desc"]],
+                "ordering": true,
+                "lengthMenu": [[10, 25, 50, -1], [10, 25, 50, "All"]],
+                "pagingType": "simple_numbers",
+                "dom": 'Blrtip', // Hides Default Search
+                "processing": true,
+                "serverSide": true,
+                "orderMulti": false,
+                "deferRender": true,
+                rowId: 'id',
+                "ajax": {
+                    "url": "/wl_guias/ObtenerGuias",
+                    "type": "POST",
+                    "datatype": "json"
+                },
+                buttons: [
+
+                    {
+                        extend: 'copyHtml5',
+                        text: '<i class="fa fa-files-o"></i>',
+                        titleAttr: 'COPIAR',
+                        exportOptions: {
+                            columns: ':visible'
+                        }
+                    },
+                    {
+                        extend: 'print',
+                        text: '<i class="fa fa-print"></i>',
+                        titleAttr: 'IMPRIMIR',
+                        exportOptions: {
+                            columns: ':visible'
+                        }
+                    },
+                    {
+                        extend: 'excel',
+                        text: '<i class="fa fa-file-excel-o"></i>',
+                        titleAttr: 'EXCEL',
+                        exportOptions: {
+                            columns: ':visible'
+                        }
+                    },
+                    {
+                        extend: 'pdf',
+                        text: '<i class="fa fa-file-pdf-o"></i>',
+                        titleAttr: 'PDF',
+                        orientation: 'landscape',
+                        exportOptions: {
+                            columns: ':visible'
+                        }
+                    }
+
+                ],
+                "aoColumns": [
+                    //0
+                    { "data": "id", "autoWidth": true, "visible": false },
+                    //1
+                    { "data": "guia", "autoWidth": true },
+                    //2
+                    {
+                        "data": null,
+                        "targets": -1,
+                        "render": function (data, type, full) {
+                            return "<button onclick='Editar(" + full['id'] + ")' class='btn btn-primary '><i class='fa fa-edit'></i></button>";
+                        },
+                        "bSearchable": false,
+                        "sortable": false,
+                        "autoWidth": true,                        
+                    }
+                ]
+            });
+
+            $('#txtGuia').on('keyup', function () {
+                table.columns(0).search(this.value).draw();
+            });
+        });
+
+        var Editar = function (ID) {
+            $.ajaxSetup({ cache: false });
+            var EditUrl = "/wl_guias/Edit/" + ID;
+            $("#MyModalContent").load(EditUrl, function () {
+                $("#MyModal").modal({
+                    //backdrop: 'static',
+                    keyboard: false
+                }, 'show');
+                bindForm(this);
+            });
+            return false;
+        }
+
+        function bindForm(dialog) {
+            $('form', dialog).submit(function () {
+                $.ajax({
+                    url: this.action,
+                    type: this.method,
+                    data: $(this).serialize(),
+                    success: function (result) {
+                        if (result.respuesta) {
+                            $("#MyModal").modal('hide');
+                            toastr.success('Edicion Correcta.');
+                            table.draw();
+                        }
+                        else {
+                            $("#MyModal").modal('show');
+                            toastr.error('Ha ocurrido un error.');
+                            bindForm(dialog);
+                        }
+                    },
+                    error: function (xml, message, text) {
+                        toastr.error("Msg: " + message + ", Text: " + text);
+                    }
+                });
+                return false;
+            });
+        }
+    </script>
+}

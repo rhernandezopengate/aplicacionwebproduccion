@@ -1,0 +1,165 @@
+﻿@{
+    ViewBag.Title = "Home Page";
+}
+
+<div class="col-md-12 col-sm-12 col-xs-12">
+    <div class="x_panel">
+        <div class="x_content">
+            <div class="" role="tabpanel" data-example-id="togglable-tabs">
+                <ul id="myTab" class="nav nav-tabs bar_tabs" role="tablist">
+                    <li role="presentation" class="active">
+                        <a href="#tab_content1" id="home-tab" role="tab" data-toggle="tab" aria-expanded="true">Mision</a>
+                    </li>
+                    <li role="presentation" class="">
+                        <a href="#tab_content2" role="tab" id="profile-tab" data-toggle="tab" aria-expanded="false">Vision</a>
+                    </li>
+                    <li role="presentation" class="">
+                        <a href="#tab_content3" role="tab" id="profile-tab2" data-toggle="tab" aria-expanded="false">Servicios</a>
+                    </li>
+                </ul>
+                <div id="myTabContent" class="tab-content">
+                    <div role="tabpanel" class="tab-pane fade active in" id="tab_content1" aria-labelledby="home-tab">
+                        <div class="col-lg-4">
+                            <br />
+                            <blockquote>
+                                <p>
+                                    "Lograr en conjunto con nuestros clientes el éxito en el almacenamiento y movimiento de las mercancías a través de integrar los mejores servicios logísticos y personal."
+                                </p>
+                            </blockquote>
+                        </div>
+                        <div class="col-lg-8">
+                            <img src="~/images/servicios-opengate.jpg" class="img-thumbnail" alt="Servicios" width="100%">
+                        </div>
+
+                    </div>
+                    <div role="tabpanel" class="tab-pane fade" id="tab_content2" aria-labelledby="profile-tab">
+                        <div class="col-lg-4">
+                            <br />
+                            <blockquote>
+                                <p>
+                                    Contribuir con nuestros clientes en lograr la excelencia en la cadena de suministro a través de una administración exitosa de inventarios, movimientos de mercancías y evidencias, maximizando la relación costo beneficio.
+                                </p>
+                            </blockquote>
+                        </div>
+                        <div class="col-lg-8">
+                            <img src="~/images/home-opengate.jpg" class="img-thumbnail" alt="Servicios" width="100%">
+                        </div>
+                    </div>
+                    <div role="tabpanel" class="tab-pane fade" id="tab_content3" aria-labelledby="profile-tab">
+                        <div class="col-lg-5">
+                            <br />
+                            <blockquote>
+                                <p>
+                                    Los servicios que ofrecemos son:
+                                    <ul>
+                                        <li>
+                                            Diseño de Modelos Logisticos
+                                        </li>
+                                        <li>
+                                            Almacenaje, distribucion y administracion de inventarios.
+                                        </li>
+                                        <li>
+                                            Servicios aduanales y de comercio exterior.
+                                        </li>
+                                        <li>
+                                            Servicios logisticos nacionales e internacionales
+                                        </li>
+                                        <li>
+                                            Armado, etiquetado y personalizacion de productos / paquetes
+                                        </li>
+                                        <li>
+                                            Almacenes  IN-SITE y Fiscales
+                                        </li>
+                                        <li>
+                                            Transporte seco y refrigerado (Door to Door)
+                                        </li>
+                                    </ul>
+                                </p>
+                            </blockquote>
+                        </div>
+                        <div class="col-lg-7">
+                            <img src="~/images/quienessomos-opengate.jpg" class="img-thumbnail" alt="Servicios" width="100%">
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+@if (User.IsInRole("admin"))
+{
+    //Tareas
+    <div class="col-md-3 col-sm-3 col-xs-12" style="text-align:center">
+        <div class="x_panel tile fixed_height_320">
+            <div class="x_title">
+                <h2>Sistemas</h2>
+
+                <div class="clearfix"></div>
+            </div>
+            <div class="x_content">
+                <a href='@Url.Action("Index", "sistemas")'>
+                    <img src='@Url.Content("~/images/web_maintenance.png")' height="140" />
+                </a>
+            </div>
+        </div>
+    </div>
+}
+
+@if (User.IsInRole("admin") || User.IsInRole("homedeliveryqro"))
+{
+    //Home Delivery
+    <div class="col-md-3 col-sm-3 col-xs-12" style="text-align:center">
+        <div class="x_panel tile fixed_height_320">
+            <div class="x_title">
+                <h2>Paqueterias HD Qro</h2>
+                <div class="clearfix"></div>
+            </div>
+            <div class="x_content">
+                <br />
+                <a href='@Url.Action("Ordenes", "homedelivery")'>
+                    <img src='@Url.Content("~/images/homedelivery.jpg")' height="170" />
+                </a>
+            </div>
+        </div>
+    </div>
+}
+
+@if (User.IsInRole("admin") || User.IsInRole("coordinadorinventarios"))
+{
+    //Inventarios
+    <div class="col-md-3 col-sm-3 col-xs-12" style="text-align:center">
+        <div class="x_panel tile fixed_height_320">
+            <div class="x_title">
+                <h2>Inventarios</h2>
+                <div class="clearfix"></div>
+            </div>
+            <div class="x_content">
+                <br />
+                <a href='@Url.Action("Index", "logisticasinversas")'>
+                    <img src='@Url.Content("~/images/inventory.png")' height="170" />
+                </a>
+            </div>
+        </div>
+    </div>
+}
+
+@if (User.IsInRole("admin") || User.IsInRole("compras") || User.IsInRole("contabilidad") || User.IsInRole("finanzas"))
+{
+    //Compras
+    <div class="col-md-3 col-sm-3 col-xs-12" style="text-align:center">
+        <div class="x_panel tile fixed_height_320">
+            <div class="x_title">
+                <h2>Compras</h2>
+                <div class="clearfix"></div>
+            </div>
+            <div class="x_content">
+                <br />
+                <a href='@Url.Action("Index", "ordenescompra")'>
+                    <img src='@Url.Content("~/Images/purchase-order.png")' height="170" />
+                </a>
+            </div>
+        </div>
+    </div>
+}
