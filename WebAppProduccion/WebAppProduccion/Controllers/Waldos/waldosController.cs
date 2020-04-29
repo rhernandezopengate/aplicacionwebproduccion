@@ -7,6 +7,7 @@ using System.Threading.Tasks;
 using System.Web;
 using System.Web.Mvc;
 using WebAppProduccion.Entities.ModulosEscaneos;
+using WebAppProduccion.Filters;
 
 namespace WebAppProduccion.Controllers.Waldos
 {
@@ -15,11 +16,13 @@ namespace WebAppProduccion.Controllers.Waldos
         DB_A3F19C_producccionEntities db = new DB_A3F19C_producccionEntities();
 
         // GET: waldos
+        [AuthorizeUser(IdOperacion: 29)]
         public ActionResult Index()
         {
             return View(db.wl_waldos.ToList());
-        }      
+        }
 
+        [AuthorizeUser(IdOperacion: 30)]
         public ActionResult CargarArchivo()
         {
             return View();
@@ -54,7 +57,7 @@ namespace WebAppProduccion.Controllers.Waldos
             return View(lista);
         }
 
-        [HttpPost]
+        [HttpPost]        
         public async Task<ActionResult> Cargar(HttpPostedFileBase postedFileBase)
         {
             try

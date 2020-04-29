@@ -6,6 +6,7 @@ using System.Web;
 using System.Web.Mvc;
 using WebAppProduccion.Entities.Graficas;
 using WebAppProduccion.Entities.ModulosEscaneos;
+using WebAppProduccion.Filters;
 
 namespace WebAppProduccion.Controllers
 {
@@ -13,6 +14,7 @@ namespace WebAppProduccion.Controllers
     {
         DB_A3F19C_producccionEntities db = new DB_A3F19C_producccionEntities();
         // GET: homedelivery
+        [AuthorizeUser(IdOperacion: 31)]
         public ActionResult Index()
         {
             DateTime fechaActual = DateTime.Now.Date;
@@ -98,6 +100,7 @@ namespace WebAppProduccion.Controllers
             return View();
         }
 
+        [AuthorizeUser(IdOperacion: 32)]
         public ActionResult Ordenes() 
         {
             return View();
