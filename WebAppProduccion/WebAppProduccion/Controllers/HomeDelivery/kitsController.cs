@@ -16,7 +16,7 @@ namespace WebAppProduccion.Controllers.HomeDelivery
         private DB_A3F19C_producccionEntities db = new DB_A3F19C_producccionEntities();
 
         // GET: kits
-        [AuthorizeUser(IdOperacion: 25)]
+        //[AuthorizeUser(IdOperacion: 25)]
         public ActionResult Index()
         {
             return View(db.kits.ToList());
@@ -73,6 +73,23 @@ namespace WebAppProduccion.Controllers.HomeDelivery
             {
                 return 0;
             }
+        }
+
+
+        public ActionResult EditarKit(int? id) 
+        {
+            kits kit = db.kits.Where(x => x.id == id).FirstOrDefault();
+            ViewBag.Id = kit.id;
+            ViewBag.Descripcion = kit.descripcion;
+            ViewBag.CodigoBarras = kit.codigobarras;
+
+            return View();        
+        }
+
+        public ActionResult EditarDetalleKit(int idkit)
+        {
+            ViewBag.IdKit = idkit;
+            return PartialView();
         }
 
         // GET: kits/Details/5

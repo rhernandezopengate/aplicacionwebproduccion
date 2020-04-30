@@ -7,6 +7,7 @@ using System.Net;
 using System.Web;
 using System.Web.Mvc;
 using WebAppProduccion.Entities.ModulosEscaneos;
+using System.Linq.Dynamic;
 
 namespace WebAppProduccion.Controllers.HomeDelivery
 {
@@ -19,6 +20,56 @@ namespace WebAppProduccion.Controllers.HomeDelivery
         {
             var kitskus = db.kitskus.Include(k => k.kits).Include(k => k.skus);
             return View(kitskus.ToList());
+        }
+
+        public ActionResult EditarDetalleKit(int? idkit) 
+        {
+            ViewBag.IdKit = idkit;
+            return PartialView();
+        }
+
+        [HttpPost]
+        public ActionResult ObtenerDetalleKit(int idkit)
+        {
+            try
+            {
+                var Draw = Request.Form.GetValues("draw").FirstOrDefault();
+                var Start = Request.Form.GetValues("start").FirstOrDefault();
+                var Length = Request.Form.GetValues("length").FirstOrDefault();
+                var SortColumn = Request.Form.GetValues("columns[" + Request.Form.GetValues("order[0][column]").FirstOrDefault() + "][data]").FirstOrDefault();
+                var SortColumnDir = Request.Form.GetValues("order[0][dir]").FirstOrDefault();
+                
+                int PageSize = Length != null ? Convert.ToInt32(Length) : 0;
+                int Skip = Start != null ? Convert.ToInt32(Start) : 0;
+                int TotalRecords = 0;
+
+                List<kitskus> listaRetorno = new List<kitskus>();
+
+                foreach (var item in db.kitskus.Where(x => x.kits_Id == idkit).ToList())
+                {
+                    kitskus kitskus = new kitskus();
+                    kitskus.id = item.id;
+                    kitskus.sku = item.skus.codigobarras;
+                    kitskus.Cantidad = item.Cantidad;
+
+                    listaRetorno.Add(kitskus);
+                }
+
+                if (!(string.IsNullOrEmpty(SortColumn) && string.IsNullOrEmpty(SortColumnDir)))
+                {
+                    listaRetorno = listaRetorno.OrderBy(SortColumn + " " + SortColumnDir).ToList();
+                }
+
+                TotalRecords = listaRetorno.ToList().Count();
+                var NewItems = listaRetorno.Skip(Skip).Take(PageSize == -1 ? TotalRecords : PageSize).ToList();
+
+                return Json(new { draw = Draw, recordsFiltered = TotalRecords, recordsTotal = TotalRecords, data = NewItems }, JsonRequestBehavior.AllowGet);
+            }
+            catch (Exception _ex)
+            {
+                Console.WriteLine(_ex.Message.ToString());
+                return null;
+            }
         }
 
         // GET: kitskus/Details/5
@@ -91,7 +142,7 @@ namespace WebAppProduccion.Controllers.HomeDelivery
             {
                 db.Entry(kitskus).State = EntityState.Modified;
                 db.SaveChanges();
-                return RedirectToAction("Index");
+                return Json( new { respuesta = true }, JsonRequestBehavior.AllowGet );
             }
             ViewBag.kits_Id = new SelectList(db.kits, "id", "descripcion", kitskus.kits_Id);
             ViewBag.skus_Id = new SelectList(db.skus, "id", "SKU", kitskus.skus_Id);
@@ -121,7 +172,7 @@ namespace WebAppProduccion.Controllers.HomeDelivery
             kitskus kitskus = db.kitskus.Find(id);
             db.kitskus.Remove(kitskus);
             db.SaveChanges();
-            return RedirectToAction("Index");
+            return Json( new { respuesta = true }, JsonRequestBehavior.AllowGet);
         }
 
         protected override void Dispose(bool disposing)

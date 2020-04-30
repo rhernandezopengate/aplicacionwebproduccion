@@ -1,0 +1,107 @@
+﻿<table id="tblDetalleKit" class="table table-bordered" width="100%">
+    <thead>
+        <tr>
+            <th>Id</th>
+            <th>SKU</th>
+            <th>Cantidad</th>
+            <th></th>
+        </tr>
+    </thead>
+</table>
+
+<div id="MyModal" class="modal fade bs-example-modal-lg">
+    <div class="modal-dialog modal-lg" id="mdialTamanio">
+        <div class="modal-content">
+            <div id="MyModalContent"></div>
+        </div>
+    </div>
+</div>
+
+<script type="text/javascript">
+    var idKit = "@Html.Raw(ViewBag.IdKit)";
+
+    table = $("#tblDetalleKit").DataTable({
+        "dom": 'Blrtip', // Hides Default Search
+        "processing": true,
+        "serverSide": true,
+        rowId: 'id',
+        "ajax": {
+            "url": "/kitskus/ObtenerDetalleKit",
+            "type": "POST",
+            "datatype": "json",
+            "data": { idkit: idKit },
+        },
+        "aoColumns": [
+            //0
+            { "data": "id", "autoWidth": true, "visible": false },
+            //1
+            { "data": "sku", "autoWidth": true },
+            //2
+            { "data": "Cantidad", "autoWidth": true },
+            //3
+            {
+                "data": null,
+                "targets": -1,
+                "render": function (data, type, full) {
+                    return "<button onclick='Editar(" + full['id'] + ")' class='btn btn-primary '><i class='fa fa-edit'></i></button>" +
+                           "<button onclick='Eliminar(" + full['id'] + ")' class='btn btn-danger '><i class='fa fa-trash'></i></button>";
+                },
+                "bSearchable": false,
+                "sortable": false,
+                "autoWidth": true,
+            }
+        ]
+    });
+
+    var Editar = function (ID) {
+        $.ajaxSetup({ cache: false });
+        var EditUrl = "/kitskus/Edit/" + ID;
+        $("#MyModalContent").load(EditUrl, function () {
+            $("#MyModal").modal({
+                //backdrop: 'static',
+                keyboard: false
+            }, 'show');
+            bindForm(this);
+        });
+        return false;
+    }
+
+    var Eliminar = function (ID) {
+        $.ajaxSetup({ cache: false });
+        var EditUrl = "/kitskus/Delete/" + ID;
+        $("#MyModalContent").load(EditUrl, function () {
+            $("#MyModal").modal({
+                //backdrop: 'static',
+                keyboard: false
+            }, 'show');
+            bindForm(this);
+        });
+        return false;
+    }
+
+    function bindForm(dialog) {
+        $('form', dialog).submit(function () {
+            $.ajax({
+                url: this.action,
+                type: this.method,
+                data: $(this).serialize(),
+                success: function (result) {
+                    if (result.respuesta) {
+                        $("#MyModal").modal('hide');
+                        toastr.success('Operacion Correcta.');
+                        table.draw();
+                    }
+                    else {
+                        $("#MyModal").modal('show');
+                        toastr.error('Ha ocurrido un error.');
+                        bindForm(dialog);
+                    }
+                },
+                error: function (xml, message, text) {
+                    toastr.error("Msg: " + message + ", Text: " + text);
+                }
+            });
+            return false;
+        });
+    }
+</script>

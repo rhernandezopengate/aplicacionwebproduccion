@@ -5075,6 +5075,9 @@
     <Content Include="Views\statusproveedors\Edit.cshtml" />
     <Content Include="Views\statusproveedors\Index.cshtml" />
     <Content Include="Views\kits\CrearKit.cshtml" />
+    <Content Include="Views\kits\EditarKit.cshtml" />
+    <Content Include="Views\kitskus\EditarDetalleKit.cshtml" />
+    <Content Include="Views\kits\EditarDetalleKit.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

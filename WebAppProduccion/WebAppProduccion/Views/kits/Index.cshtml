@@ -35,12 +35,10 @@
                         @Html.DisplayFor(modelItem => item.codigobarras)
                     </td>
                     <td>
-                        <a class="btn btn-primary" href="@Url.Action("Edit", new { id = item.id })"> <i class="fa fa-edit"></i></a>
-                        <button class="btn btn-danger" onclick="Delete(@item.id)"> <i class="fa fa-trash"></i></button>
+                        <a class="btn btn-primary" href="@Url.Action("EditarKit", new { id = item.id })"> <i class="fa fa-edit"></i></a>                        
                     </td>
                 </tr>
             }
-
         </table>
     </div>
 </div>

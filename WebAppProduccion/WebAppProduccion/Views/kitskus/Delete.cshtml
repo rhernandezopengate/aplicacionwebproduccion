@@ -2,48 +2,66 @@
 
 @{
     ViewBag.Title = "Delete";
-    Layout = "~/Views/Shared/_LayoutHomeDelivery.cshtml";
+    Layout = null;
 }
 
-<h2>Delete</h2>
+<div class="modal-header text-center">
+    <button type="button" class="close" data-dismiss="modal">
+        <span aria-hidden="true">×</span>
+    </button>
+    <h2 class="modal-title">Eliminar SKU del Kit</h2>
+</div>
+<div class="modal-body">
+    <div class="col-md-4 col-xs-12 widget widget_tally_box">
 
-<h3>Are you sure you want to delete this?</h3>
-<div>
-    <h4>kitskus</h4>
-    <hr />
-    <dl class="dl-horizontal">
-        <dt>
-            @Html.DisplayNameFor(model => model.Cantidad)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.Cantidad)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.kits.descripcion)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.kits.descripcion)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.skus.SKU)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.skus.SKU)
-        </dd>
-
-    </dl>
-
-    @using (Html.BeginForm()) {
-        @Html.AntiForgeryToken()
-
-        <div class="form-actions no-color">
-            <input type="submit" value="Delete" class="btn btn-default" /> |
-            @Html.ActionLink("Back to List", "Index")
+    </div>
+    <div class="col-md-4 col-xs-12 widget widget_tally_box">
+        <div class="x_panel fixed_height_390">
+            <div class="x_content">
+                <center>
+                    <p>
+                        <h3><b><label>KIT</label></b></h3>
+                        <h2><b><label>@Model.kits.codigobarras</label></b></h2>
+                        <br />
+                        <h3><b><label>SKU</label></b></h3>
+                        <h2><b><label>@Model.skus.codigobarras</label></b></h2>
+                        <br />
+                        <h3><b><label>CANTIDAD</label></b></h3>
+                        <h2><b><label>@Model.Cantidad</label></b></h2>
+                    </p>
+                </center>                
+            </div>
         </div>
+    </div>
+    <br />
+    <br />
+    <br />
+    <br />
+    <br />
+    <br />
+    <br />
+    <br />
+    <br />
+    <br />
+    <br />
+    <br />
+    <br />
+    <br />
+    <br />
+    <br />
+    <br />
+    <br />
+    <br />
+    <br />
+    <br />
+</div>
+<div class="modal-footer">
+    @using (Html.BeginForm())
+    {
+        @Html.AntiForgeryToken()
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
+        <input type="submit" value="Eliminar" class="btn btn-danger" />
     }
 </div>
+
+
