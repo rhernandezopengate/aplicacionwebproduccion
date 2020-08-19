@@ -25,13 +25,13 @@ namespace WebAppProduccion.Entities.ModulosAdministracion
             throw new UnintentionalCodeFirstException();
         }
     
-        public virtual DbSet<contactosproveedores> contactosproveedores { get; set; }
-        public virtual DbSet<direccionproveedor> direccionproveedor { get; set; }
-        public virtual DbSet<informacionbancaria> informacionbancaria { get; set; }
         public virtual DbSet<credito> credito { get; set; }
         public virtual DbSet<monedafacturacion> monedafacturacion { get; set; }
         public virtual DbSet<categoriaproveedor> categoriaproveedor { get; set; }
-        public virtual DbSet<proveedores> proveedores { get; set; }
         public virtual DbSet<statusproveedor> statusproveedor { get; set; }
+        public virtual DbSet<direccionproveedor> direccionproveedor { get; set; }
+        public virtual DbSet<informacionbancaria> informacionbancaria { get; set; }
+        public virtual DbSet<proveedores> proveedores { get; set; }
+        public virtual DbSet<contactosproveedores> contactosproveedores { get; set; }
     }
 }

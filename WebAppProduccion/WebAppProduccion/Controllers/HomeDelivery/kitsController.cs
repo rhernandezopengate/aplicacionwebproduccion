@@ -16,7 +16,7 @@ namespace WebAppProduccion.Controllers.HomeDelivery
         private DB_A3F19C_producccionEntities db = new DB_A3F19C_producccionEntities();
 
         // GET: kits
-        //[AuthorizeUser(IdOperacion: 25)]
+        [AuthorizeUser(IdOperacion: 25)]
         public ActionResult Index()
         {
             return View(db.kits.ToList());
@@ -75,7 +75,6 @@ namespace WebAppProduccion.Controllers.HomeDelivery
             }
         }
 
-
         public ActionResult EditarKit(int? id) 
         {
             kits kit = db.kits.Where(x => x.id == id).FirstOrDefault();
@@ -86,6 +85,7 @@ namespace WebAppProduccion.Controllers.HomeDelivery
             return View();        
         }
 
+        [AuthorizeUser(IdOperacion: 27)]
         public ActionResult EditarDetalleKit(int idkit)
         {
             ViewBag.IdKit = idkit;
@@ -158,15 +158,9 @@ namespace WebAppProduccion.Controllers.HomeDelivery
         [HttpPost]
         [ValidateAntiForgeryToken]
         [AuthorizeUser(IdOperacion: 27)]
-        public ActionResult Edit([Bind(Include = "id,descripcion,codigobarras")] kits kits)
-        {
-            if (ModelState.IsValid)
-            {
-                db.Entry(kits).State = EntityState.Modified;
-                db.SaveChanges();
-                return RedirectToAction("Index");
-            }
-            return View(kits);
+        public ActionResult Edit(int idkit, string descripcion, string codigobarras)
+        {            
+            return Json(JsonRequestBehavior.AllowGet);
         }
 
         // GET: kits/Delete/5

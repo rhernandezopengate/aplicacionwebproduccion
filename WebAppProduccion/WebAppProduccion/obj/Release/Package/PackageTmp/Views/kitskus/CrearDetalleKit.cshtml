@@ -1,0 +1,70 @@
+﻿@using (Html.BeginForm("CrearDetKit", "kitskus", FormMethod.Post))
+{
+    <input id="idkit" name="idkit" type="hidden" value="@ViewBag.IdKit" />
+    <input id="idsku" name="idsku" type="hidden" />
+
+    <div class="modal-header text-center">
+        <button type="button" class="close" data-dismiss="modal">
+            <span aria-hidden="true">×</span>
+        </button>
+        <h4 class="modal-title">Agregar Nuevo Elemento</h4>
+    </div>
+    <div class="modal-body">
+        <div id="demo-form2" data-parsley-validate="" class="form-horizontal form-label-left" novalidate="">
+            <div class="form-group">
+                <label class="control-label col-md-3 col-sm-3 col-xs-12" for="txtBusquedaSKU">
+                    SKU <span class="required">*</span>
+                </label>
+                <div class="col-md-6 col-sm-6 col-xs-12">
+                    <input id="txtBusquedaSKU" name="txtBusquedaSKU" type="text" class="form-control col-md-7 col-xs-12" />
+                </div>
+            </div>
+            <div class="form-group">
+                <label class="control-label col-md-3 col-sm-3 col-xs-12" for="last-name">
+                    Cantidad <span class="required">*</span>
+                </label>
+                <div class="col-md-6 col-sm-6 col-xs-12">
+                    <input id="cantidad" name="cantidad" type="text" class="form-control col-md-7 col-xs-12" />
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
+        <input type="submit" value="Guardar" class="btn btn-default" />
+    </div>
+}
+
+<script type="text/javascript">
+    $(function () {
+        $("#txtBusquedaSKU").autocomplete({
+            source: function (request, response) {
+                $.ajax({
+                    url: '/skus/AutoComplete/',
+                    data: "{ 'prefix': '" + request.term + "'}",
+                    dataType: "json",
+                    type: "POST",
+                    contentType: "application/json; charset=utf-8",
+                    success: function (data) {
+                        response($.map(data, function (item) {
+                            return item;
+                        }));
+                    },
+                    error: function (response) {
+                        alert(response.responseText);
+                    },
+                    failure: function (response) {
+                        alert(response.responseText);
+                    }
+                });
+            },
+            change: function (event, ui) { },
+            select: function (e, i) {
+                $("#idsku").val(i.item.val);
+            },
+            minLength: 0
+        }).focus(function () {
+            $(this).autocomplete("search");
+        });
+    });
+</script>

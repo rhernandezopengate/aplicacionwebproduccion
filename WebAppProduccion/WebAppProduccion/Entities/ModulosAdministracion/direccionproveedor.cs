@@ -14,15 +14,21 @@ namespace WebAppProduccion.Entities.ModulosAdministracion
     
     public partial class direccionproveedor
     {
-        public int id { get; set; }
-        public string Pais { get; set; }
-        public string Estado { get; set; }
-        public string Municipio { get; set; }
-        public string Colonia { get; set; }
-        public string Calle { get; set; }
-        public string CP { get; set; }
-        public int Proveedores_Id { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
+        public direccionproveedor()
+        {
+            this.proveedores = new HashSet<proveedores>();
+        }
     
-        public virtual proveedores proveedores { get; set; }
+        public int id { get; set; }
+        public string pais { get; set; }
+        public string estado { get; set; }
+        public string municipio { get; set; }
+        public string colonia { get; set; }
+        public string calle { get; set; }
+        public string cp { get; set; }
+    
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<proveedores> proveedores { get; set; }
     }
 }

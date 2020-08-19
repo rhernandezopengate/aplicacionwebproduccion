@@ -11,11 +11,12 @@
     <Key>
       <PropertyRef Name="id" />
     </Key>
-    <Property Name="id" Type="int" Nullable="false" />
-    <Property Name="nombres" Type="varchar" MaxLength="100" />
-    <Property Name="email" Type="varchar" MaxLength="100" />
-    <Property Name="puesto" Type="varchar" MaxLength="50" />
-    <Property Name="proveedores_id" Type="int" Nullable="false" />
+    <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Nombres" Type="varchar" MaxLength="100" />
+    <Property Name="Email" Type="varchar" MaxLength="100" />
+    <Property Name="Puesto" Type="varchar" MaxLength="50" />
+    <Property Name="Proveedores_Id" Type="int" Nullable="false" />
+    <Property Name="Telefono" Type="varchar" MaxLength="25" />
   </EntityType>
   <EntityType Name="credito">
     <Key>
@@ -30,23 +31,21 @@
       <PropertyRef Name="id" />
     </Key>
     <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-    <Property Name="Pais" Type="varchar" MaxLength="50" />
-    <Property Name="Estado" Type="varchar" MaxLength="50" />
-    <Property Name="Municipio" Type="varchar" MaxLength="50" />
-    <Property Name="Colonia" Type="varchar" MaxLength="50" />
-    <Property Name="Calle" Type="varchar" MaxLength="50" />
-    <Property Name="CP" Type="varchar" MaxLength="50" />
-    <Property Name="Proveedores_Id" Type="int" Nullable="false" />
+    <Property Name="pais" Type="varchar" MaxLength="50" />
+    <Property Name="estado" Type="varchar" MaxLength="50" />
+    <Property Name="municipio" Type="varchar" MaxLength="50" />
+    <Property Name="colonia" Type="varchar" MaxLength="50" />
+    <Property Name="calle" Type="varchar" MaxLength="50" />
+    <Property Name="cp" Type="varchar" MaxLength="50" />
   </EntityType>
   <EntityType Name="informacionbancaria">
     <Key>
       <PropertyRef Name="id" />
     </Key>
     <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-    <Property Name="NombreBanco" Type="varchar" MaxLength="50" />
-    <Property Name="CuentaBancaria" Type="varchar" MaxLength="50" />
-    <Property Name="ClaveInterbancaria" Type="varchar" MaxLength="50" />
-    <Property Name="Proveedores_Id" Type="int" Nullable="false" />
+    <Property Name="nombrebanco" Type="varchar" MaxLength="50" />
+    <Property Name="cuentabancaria" Type="varchar" MaxLength="50" />
+    <Property Name="claveinterbancaria" Type="varchar" MaxLength="50" />
   </EntityType>
   <EntityType Name="monedafacturacion">
     <Key>
@@ -69,7 +68,9 @@
     <Property Name="MonedaFacturacion_Id" Type="int" Nullable="false" />
     <Property Name="Credito_Id" Type="int" Nullable="false" />
     <Property Name="CategoriaProveedor_Id" Type="int" Nullable="false" />
-    <Property Name="StatusProveedor_Id" Type="int" />
+    <Property Name="StatusProveedor_Id" Type="int" Nullable="false" />
+    <Property Name="InformacionBancaria_Id" Type="int" Nullable="false" />
+    <Property Name="DireccionProveedor_Id" Type="int" Nullable="false" />
   </EntityType>
   <EntityType Name="statusproveedor">
     <Key>
@@ -86,30 +87,6 @@
         <PropertyRef Name="id" />
       </Principal>
       <Dependent Role="contactosproveedores">
-        <PropertyRef Name="proveedores_id" />
-      </Dependent>
-    </ReferentialConstraint>
-  </Association>
-  <Association Name="direccionproveedor_proveedores_fk">
-    <End Role="proveedores" Type="Self.proveedores" Multiplicity="1" />
-    <End Role="direccionproveedor" Type="Self.direccionproveedor" Multiplicity="*" />
-    <ReferentialConstraint>
-      <Principal Role="proveedores">
-        <PropertyRef Name="id" />
-      </Principal>
-      <Dependent Role="direccionproveedor">
-        <PropertyRef Name="Proveedores_Id" />
-      </Dependent>
-    </ReferentialConstraint>
-  </Association>
-  <Association Name="informacionbancaria_proveedores_fk">
-    <End Role="proveedores" Type="Self.proveedores" Multiplicity="1" />
-    <End Role="informacionbancaria" Type="Self.informacionbancaria" Multiplicity="*" />
-    <ReferentialConstraint>
-      <Principal Role="proveedores">
-        <PropertyRef Name="id" />
-      </Principal>
-      <Dependent Role="informacionbancaria">
         <PropertyRef Name="Proveedores_Id" />
       </Dependent>
     </ReferentialConstraint>
@@ -138,6 +115,30 @@
       </Dependent>
     </ReferentialConstraint>
   </Association>
+  <Association Name="proveedores_direccionproveedor_fk">
+    <End Role="direccionproveedor" Type="Self.direccionproveedor" Multiplicity="1" />
+    <End Role="proveedores" Type="Self.proveedores" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="direccionproveedor">
+        <PropertyRef Name="id" />
+      </Principal>
+      <Dependent Role="proveedores">
+        <PropertyRef Name="DireccionProveedor_Id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="proveedores_informacionbancaria_fk">
+    <End Role="informacionbancaria" Type="Self.informacionbancaria" Multiplicity="1" />
+    <End Role="proveedores" Type="Self.proveedores" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="informacionbancaria">
+        <PropertyRef Name="id" />
+      </Principal>
+      <Dependent Role="proveedores">
+        <PropertyRef Name="InformacionBancaria_Id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
   <Association Name="proveedores_monedafacturacion_fk">
     <End Role="monedafacturacion" Type="Self.monedafacturacion" Multiplicity="1" />
     <End Role="proveedores" Type="Self.proveedores" Multiplicity="*" />
@@ -151,7 +152,7 @@
     </ReferentialConstraint>
   </Association>
   <Association Name="proveedores_statusproveedor_fk">
-    <End Role="statusproveedor" Type="Self.statusproveedor" Multiplicity="0..1" />
+    <End Role="statusproveedor" Type="Self.statusproveedor" Multiplicity="1" />
     <End Role="proveedores" Type="Self.proveedores" Multiplicity="*" />
     <ReferentialConstraint>
       <Principal Role="statusproveedor">
@@ -175,20 +176,20 @@
       <End Role="proveedores" EntitySet="proveedores" />
       <End Role="contactosproveedores" EntitySet="contactosproveedores" />
     </AssociationSet>
-    <AssociationSet Name="direccionproveedor_proveedores_fk" Association="Self.direccionproveedor_proveedores_fk">
-      <End Role="proveedores" EntitySet="proveedores" />
-      <End Role="direccionproveedor" EntitySet="direccionproveedor" />
-    </AssociationSet>
-    <AssociationSet Name="informacionbancaria_proveedores_fk" Association="Self.informacionbancaria_proveedores_fk">
-      <End Role="proveedores" EntitySet="proveedores" />
-      <End Role="informacionbancaria" EntitySet="informacionbancaria" />
-    </AssociationSet>
     <AssociationSet Name="proveedores_categoriaproveedor_fk" Association="Self.proveedores_categoriaproveedor_fk">
       <End Role="categoriaproveedor" EntitySet="categoriaproveedor" />
       <End Role="proveedores" EntitySet="proveedores" />
     </AssociationSet>
     <AssociationSet Name="proveedores_credito_fk" Association="Self.proveedores_credito_fk">
       <End Role="credito" EntitySet="credito" />
+      <End Role="proveedores" EntitySet="proveedores" />
+    </AssociationSet>
+    <AssociationSet Name="proveedores_direccionproveedor_fk" Association="Self.proveedores_direccionproveedor_fk">
+      <End Role="direccionproveedor" EntitySet="direccionproveedor" />
+      <End Role="proveedores" EntitySet="proveedores" />
+    </AssociationSet>
+    <AssociationSet Name="proveedores_informacionbancaria_fk" Association="Self.proveedores_informacionbancaria_fk">
+      <End Role="informacionbancaria" EntitySet="informacionbancaria" />
       <End Role="proveedores" EntitySet="proveedores" />
     </AssociationSet>
     <AssociationSet Name="proveedores_monedafacturacion_fk" Association="Self.proveedores_monedafacturacion_fk">

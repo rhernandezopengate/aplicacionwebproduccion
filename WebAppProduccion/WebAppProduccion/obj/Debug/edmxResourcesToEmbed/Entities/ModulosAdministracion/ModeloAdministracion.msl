@@ -1,42 +1,6 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
   <EntityContainerMapping StorageEntityContainer="DB_A3F19C_producccionModel2StoreContainer" CdmEntityContainer="DB_A3F19C_producccionEntities2">
-    <EntitySetMapping Name="contactosproveedores">
-      <EntityTypeMapping TypeName="DB_A3F19C_producccionModel2.contactosproveedores">
-        <MappingFragment StoreEntitySet="contactosproveedores">
-          <ScalarProperty Name="id" ColumnName="id" />
-          <ScalarProperty Name="nombres" ColumnName="nombres" />
-          <ScalarProperty Name="email" ColumnName="email" />
-          <ScalarProperty Name="puesto" ColumnName="puesto" />
-          <ScalarProperty Name="proveedores_id" ColumnName="proveedores_id" />
-        </MappingFragment>
-      </EntityTypeMapping>
-    </EntitySetMapping>
-    <EntitySetMapping Name="direccionproveedor">
-      <EntityTypeMapping TypeName="DB_A3F19C_producccionModel2.direccionproveedor">
-        <MappingFragment StoreEntitySet="direccionproveedor">
-          <ScalarProperty Name="id" ColumnName="id" />
-          <ScalarProperty Name="Pais" ColumnName="Pais" />
-          <ScalarProperty Name="Estado" ColumnName="Estado" />
-          <ScalarProperty Name="Municipio" ColumnName="Municipio" />
-          <ScalarProperty Name="Colonia" ColumnName="Colonia" />
-          <ScalarProperty Name="Calle" ColumnName="Calle" />
-          <ScalarProperty Name="CP" ColumnName="CP" />
-          <ScalarProperty Name="Proveedores_Id" ColumnName="Proveedores_Id" />
-        </MappingFragment>
-      </EntityTypeMapping>
-    </EntitySetMapping>
-    <EntitySetMapping Name="informacionbancaria">
-      <EntityTypeMapping TypeName="DB_A3F19C_producccionModel2.informacionbancaria">
-        <MappingFragment StoreEntitySet="informacionbancaria">
-          <ScalarProperty Name="id" ColumnName="id" />
-          <ScalarProperty Name="NombreBanco" ColumnName="NombreBanco" />
-          <ScalarProperty Name="CuentaBancaria" ColumnName="CuentaBancaria" />
-          <ScalarProperty Name="ClaveInterbancaria" ColumnName="ClaveInterbancaria" />
-          <ScalarProperty Name="Proveedores_Id" ColumnName="Proveedores_Id" />
-        </MappingFragment>
-      </EntityTypeMapping>
-    </EntitySetMapping>
     <EntitySetMapping Name="credito">
       <EntityTypeMapping TypeName="DB_A3F19C_producccionModel2.credito">
         <MappingFragment StoreEntitySet="credito">
@@ -62,9 +26,42 @@
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>
+    <EntitySetMapping Name="statusproveedor">
+      <EntityTypeMapping TypeName="DB_A3F19C_producccionModel2.statusproveedor">
+        <MappingFragment StoreEntitySet="statusproveedor">
+          <ScalarProperty Name="descripcion" ColumnName="descripcion" />
+          <ScalarProperty Name="id" ColumnName="id" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="direccionproveedor">
+      <EntityTypeMapping TypeName="DB_A3F19C_producccionModel2.direccionproveedor">
+        <MappingFragment StoreEntitySet="direccionproveedor">
+          <ScalarProperty Name="cp" ColumnName="cp" />
+          <ScalarProperty Name="calle" ColumnName="calle" />
+          <ScalarProperty Name="colonia" ColumnName="colonia" />
+          <ScalarProperty Name="municipio" ColumnName="municipio" />
+          <ScalarProperty Name="estado" ColumnName="estado" />
+          <ScalarProperty Name="pais" ColumnName="pais" />
+          <ScalarProperty Name="id" ColumnName="id" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="informacionbancaria">
+      <EntityTypeMapping TypeName="DB_A3F19C_producccionModel2.informacionbancaria">
+        <MappingFragment StoreEntitySet="informacionbancaria">
+          <ScalarProperty Name="claveinterbancaria" ColumnName="claveinterbancaria" />
+          <ScalarProperty Name="cuentabancaria" ColumnName="cuentabancaria" />
+          <ScalarProperty Name="nombrebanco" ColumnName="nombrebanco" />
+          <ScalarProperty Name="id" ColumnName="id" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
     <EntitySetMapping Name="proveedores">
       <EntityTypeMapping TypeName="DB_A3F19C_producccionModel2.proveedores">
         <MappingFragment StoreEntitySet="proveedores">
+          <ScalarProperty Name="DireccionProveedor_Id" ColumnName="DireccionProveedor_Id" />
+          <ScalarProperty Name="InformacionBancaria_Id" ColumnName="InformacionBancaria_Id" />
           <ScalarProperty Name="StatusProveedor_Id" ColumnName="StatusProveedor_Id" />
           <ScalarProperty Name="CategoriaProveedor_Id" ColumnName="CategoriaProveedor_Id" />
           <ScalarProperty Name="Credito_Id" ColumnName="Credito_Id" />
@@ -79,10 +76,14 @@
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>
-    <EntitySetMapping Name="statusproveedor">
-      <EntityTypeMapping TypeName="DB_A3F19C_producccionModel2.statusproveedor">
-        <MappingFragment StoreEntitySet="statusproveedor">
-          <ScalarProperty Name="descripcion" ColumnName="descripcion" />
+    <EntitySetMapping Name="contactosproveedores">
+      <EntityTypeMapping TypeName="DB_A3F19C_producccionModel2.contactosproveedores">
+        <MappingFragment StoreEntitySet="contactosproveedores">
+          <ScalarProperty Name="Telefono" ColumnName="Telefono" />
+          <ScalarProperty Name="Proveedores_Id" ColumnName="Proveedores_Id" />
+          <ScalarProperty Name="Puesto" ColumnName="Puesto" />
+          <ScalarProperty Name="Email" ColumnName="Email" />
+          <ScalarProperty Name="Nombres" ColumnName="Nombres" />
           <ScalarProperty Name="id" ColumnName="id" />
         </MappingFragment>
       </EntityTypeMapping>

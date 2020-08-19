@@ -1,0 +1,619 @@
+﻿@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_LayoutAdministracion.cshtml";
+}
+
+<div class="x_panel">
+    <div class="x_title">
+        <h2> Proveedores <small>Create</small></h2> &nbsp;&nbsp;&nbsp;
+        <button id="btnAgregar" class="btn btn-default"><i class="fa fa-floppy-o"></i> Guardar</button>
+        <a class="btn btn-danger" href="@Url.Action("Index")"> <i class="fa fa-close"></i> Regresar</a>
+        <div class="clearfix"></div>
+    </div>
+    <div class="x_content">
+        <div class="" role="tabpanel" data-example-id="togglable-tabs">
+            <ul id="myTab" class="nav nav-tabs bar_tabs" role="tablist">
+                <li role="presentation" class="active">
+                    <a href="#tab_content1" id="home-tab" role="tab" data-toggle="tab" aria-expanded="true">Informacion General</a>
+                </li>
+                <li role="presentation" class="">
+                    <a href="#tab_content2" role="tab" id="profile-tab" data-toggle="tab" aria-expanded="false">Direccion</a>
+                </li>
+                <li role="presentation" class="">
+                    <a href="#tab_content3" role="tab" id="profile-tab2" data-toggle="tab" aria-expanded="false">Informacion Bancaria</a>
+                </li>
+                <li role="presentation" class="">
+                    <a href="#tab_content4" role="tab" id="profile-tab2" data-toggle="tab" aria-expanded="false">Contactos</a>
+                </li>
+            </ul>
+            <div id="myTabContent" class="tab-content">
+                <div role="tabpanel" class="tab-pane fade active in" id="tab_content1" aria-labelledby="home-tab">
+                    <div data-parsley-validate="" class="form-horizontal form-label-left" novalidate="">
+                        <div class="form-group">
+                            <label class="control-label col-md-3 col-sm-3 col-xs-12">
+                                Razon Social <span class="required">*</span>
+                            </label>
+                            <div class="col-md-6 col-sm-6 col-xs-12">
+                                <input id="txtRazonSocial" type="text" class="form-control col-md-7 col-xs-12">
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="control-label col-md-3 col-sm-3 col-xs-12">
+                                RFC <span class="required">*</span>
+                            </label>
+                            <div class="col-md-6 col-sm-6 col-xs-12">
+                                <input id="txtRFC" type="text" class="form-control col-md-7 col-xs-12">
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="control-label col-md-3 col-sm-3 col-xs-12">
+                                Nombre Comercial <span class="required">*</span>
+                            </label>
+                            <div class="col-md-6 col-sm-6 col-xs-12">
+                                <input id="txtNombreComercial" type="text" class="form-control col-md-7 col-xs-12">
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="control-label col-md-3 col-sm-3 col-xs-12">
+                                Actividad Empresarial <span class="required">*</span>
+                            </label>
+                            <div class="col-md-6 col-sm-6 col-xs-12">
+                                <input id="txtActividadEmpresarial" class="form-control col-md-7 col-xs-12" type="text">
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="control-label col-md-3 col-sm-3 col-xs-12">
+                                Representante Legal <span class="required">*</span>
+                            </label>
+                            <div class="col-md-6 col-sm-6 col-xs-12">
+                                <input id="txtRepresentanteLegal" class="form-control col-md-7 col-xs-12" type="text">
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="control-label col-md-3 col-sm-3 col-xs-12">
+                                Moneda Facturacion <span class="required">*</span>
+                            </label>
+                            <div class="col-md-6 col-sm-6 col-xs-12">
+                                <div class="input-group">
+                                    <select id="ddlMoneda" class="form-control col-md-7 col-xs-12"></select>
+                                    <span class="input-group-btn">
+                                        <button type="button" class="btn btn-primary" onclick="RecargarMoneda()"><i class="fa fa-refresh"></i></button>
+                                    </span>
+                                </div>                               
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="control-label col-md-3 col-sm-3 col-xs-12">
+                                Credito <span class="required">*</span>
+                            </label>
+                            <div class="col-md-6 col-sm-6 col-xs-12">
+                                <div class="input-group">
+                                    <select id="ddlCredito" class="form-control col-md-7 col-xs-12"></select>
+                                    <span class="input-group-btn">
+                                        <button type="button" class="btn btn-primary" onclick="RecargarCredito()"><i class="fa fa-refresh"></i></button>
+                                    </span>
+                                </div>                                
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="control-label col-md-3 col-sm-3 col-xs-12">
+                                Categoria <span class="required">*</span>
+                            </label>
+                            <div class="col-md-6 col-sm-6 col-xs-12">
+                                <div class="input-group">
+                                    <select id="ddlCategoria" class="form-control col-md-7 col-xs-12"></select>
+                                    <span class="input-group-btn">
+                                        <button type="button" class="btn btn-primary" onclick="RecargarCategoria()"><i class="fa fa-refresh"></i></button>
+                                    </span>
+                                </div>                                
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div role="tabpanel" class="tab-pane fade" id="tab_content2" aria-labelledby="profile-tab">
+                    <div data-parsley-validate="" class="form-horizontal form-label-left" novalidate="">
+                        <div class="form-group">
+                            <label class="control-label col-md-3 col-sm-3 col-xs-12">
+                                Pais <span class="required">*</span>
+                            </label>
+                            <div class="col-md-6 col-sm-6 col-xs-12">
+                                <input id="txtPais" type="text" class="form-control col-md-7 col-xs-12">
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="control-label col-md-3 col-sm-3 col-xs-12">
+                                Estado <span class="required">*</span>
+                            </label>
+                            <div class="col-md-6 col-sm-6 col-xs-12">
+                                <input id="txtEstado" type="text" class="form-control col-md-7 col-xs-12">
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="control-label col-md-3 col-sm-3 col-xs-12">
+                                Municipio <span class="required">*</span>
+                            </label>
+                            <div class="col-md-6 col-sm-6 col-xs-12">
+                                <input id="txtMunicipio" type="text" class="form-control col-md-7 col-xs-12">
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="control-label col-md-3 col-sm-3 col-xs-12">
+                                Colonia <span class="required">*</span>
+                            </label>
+                            <div class="col-md-6 col-sm-6 col-xs-12">
+                                <input id="txtColonia" type="text" class="form-control col-md-7 col-xs-12">
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="control-label col-md-3 col-sm-3 col-xs-12">
+                                Calle <span class="required">*</span>
+                            </label>
+                            <div class="col-md-6 col-sm-6 col-xs-12">
+                                <input id="txtCalle" type="text" class="form-control col-md-7 col-xs-12">
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="control-label col-md-3 col-sm-3 col-xs-12">
+                                CP <span class="required">*</span>
+                            </label>
+                            <div class="col-md-6 col-sm-6 col-xs-12">
+                                <input id="txtCP" type="number" class="form-control col-md-7 col-xs-12">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div role="tabpanel" class="tab-pane fade" id="tab_content3" aria-labelledby="profile-tab">
+                    <div data-parsley-validate="" class="form-horizontal form-label-left" novalidate="">
+                        <div class="form-group">
+                            <label class="control-label col-md-3 col-sm-3 col-xs-12">
+                                Nombre Banco <span class="required">*</span>
+                            </label>
+                            <div class="col-md-6 col-sm-6 col-xs-12">
+                                <input id="txtNombreBanco" type="text" class="form-control col-md-7 col-xs-12">
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="control-label col-md-3 col-sm-3 col-xs-12">
+                                Cuenta Bancaria <span class="required">*</span>
+                            </label>
+                            <div class="col-md-6 col-sm-6 col-xs-12">
+                                <input id="txtCuentaBancaria" type="text" class="form-control col-md-7 col-xs-12">
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="control-label col-md-3 col-sm-3 col-xs-12">
+                                Clabe Interbancaria <span class="required">*</span>
+                            </label>
+                            <div class="col-md-6 col-sm-6 col-xs-12">
+                                <input id="txtClabeInterbancaria" type="text" class="form-control col-md-7 col-xs-12">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div role="tabpanel" class="tab-pane fade" id="tab_content4" aria-labelledby="profile-tab">
+                    <br />
+                    <table id="detalleContactos" class="table table-bordered">
+                        <thead>
+                            <tr>
+                                <th><input type="text" id="txtNombreContacto" class="form-control" placeholder="Nombre Completo del Contacto" /></th>
+                                <th><input type="text" id="txtEmail" class="form-control" placeholder="Email del Contacto" /></th>
+                                <th><input type="text" id="txtTelefono" class="form-control" placeholder="Telefono del Contacto" /></th>
+                                <th><select id="ddlPuestos" class="form-control col-md-7 col-xs-12"></select></th>
+                                <th width="2%"><button id="btnAgregarContactos" class="btn btn-primary"><i class="fa fa-plus-circle"></i> </button></th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="modal modal-static fade" id="processing-modal" role="dialog" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-body">
+                <div class="text-center">
+                    <img src="~/build/images/loading.gif" class="icon" />
+                    <h5><span class="modal-text">Procesando, Espere por favor... </span></h5>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+@section Styles {
+    <link href="~/Content/toastr.min.css" rel="stylesheet" />
+}
+
+@section Scripts {
+    <script src="~/Scripts/toastr.min.js"></script>
+    <script type="text/javascript">
+        $("#btnAgregarContactos").click(function (e) {
+            e.preventDefault();
+
+            var nombres = $("#txtNombreContacto").val(),
+                email = $("#txtEmail").val(),
+                telefono = $("#txtTelefono").val(),
+                puesto = $("#ddlPuestos").val();
+
+            var detalleContactos = $("#detalleContactos tbody");
+
+            var contactoAgregado = "<tr>" +
+                "<td>" + nombres + "</td>" +
+                "<td>" + email + "</td>" +
+                "<td>" + telefono + "</td>" +
+                "<td>" + puesto + "</td>" +
+                '<td><a data-itemId="0" href="#" class="btn btn-danger"><i class="glyphicon glyphicon-trash"></i></a></td>' +
+                "</tr>";
+
+            detalleContactos.append(contactoAgregado);
+            LimpiarCampos();
+        });
+
+        $(document).on('click', 'a.btn-danger', function (e) {
+            var $self = $(this);
+            if ($(this).attr('data-itemId') == "0") {
+                $(this).parents('tr').css("background-color", "#ff6347").fadeOut(800, function () {
+                    $(this).remove();
+                });
+            }
+        });
+
+        function LimpiarCampos() {
+            $("#txtNombreContacto").val('');
+            $("#txtEmail").val('');
+            $("#txtTelefono").val('');
+            $("#txtPuesto").val('');
+            $("#ddlPuestos").val(0);
+            $("#txtNombreContacto").focus();
+        }
+
+        $("#btnAgregar").click(function (e) {
+            ValidarInformacion();
+        });
+
+        function ValidarInformacion() {
+
+            var $modal = $("#processing-modal");
+            $modal.modal('show');
+
+            //Datos Generales
+            var razonsocial = $("#txtRazonSocial").val();
+            var rfc = $("#txtRFC").val();
+            var nombrecomercial = $("#txtNombreComercial").val();
+            var actividadempresarial = $("#txtActividadEmpresarial").val();
+            var representantelegal = $("#txtRepresentanteLegal").val();
+            var moneda = $("#ddlMoneda").val();
+            var credito = $("#ddlCredito").val();
+            var categoria = $("#ddlCategoria").val();
+
+            //Direccion
+            var pais = $("#txtPais").val();
+            var estado = $("#txtEstado").val();
+            var municipio = $("#txtMunicipio").val();
+            var colonia = $("#txtColonia").val();
+            var calle = $("#txtCalle").val();
+            var cp = $("#txtCP").val();
+
+            //INFORMACION
+            var banco = $("#txtNombreBanco").val();
+            var cuentabancaria = $("#txtCuentaBancaria").val();
+            var clabeinterbancaria = $("#txtClabeInterbancaria").val();
+
+            if (razonsocial === "") {
+                $modal.modal('hide');
+                MensajeError("RAZON SOCIAL");
+            }
+            else if (rfc === "") {
+                $modal.modal('hide');
+                MensajeError("RFC");
+            }
+            else if (actividadempresarial === "") {
+                $modal.modal('hide');
+                MensajeError("ACTIVIDAD EMPRESARIAL");
+            }
+            else if (representantelegal === "") {
+                $modal.modal('hide');
+                MensajeError("REPRESENTANTE LEGAL");
+            }
+            else if (moneda === "0") {
+                $modal.modal('hide');
+                MensajeError("MONEDA FACTURACION");
+            }
+            else if (credito === "0") {
+                $modal.modal('hide');
+                MensajeError("CREDITO");
+            }
+            else if (categoria === "0") {
+                $modal.modal('hide');
+                MensajeError("CATEGORIA PROVEEDOR");
+            }
+            else if (pais === "") {
+                $modal.modal('hide');
+                MensajeError("PAIS");
+            }
+            else if (estado === "") {
+                $modal.modal('hide');
+                MensajeError("ESTADO");
+            }
+            else if (municipio === "") {
+                $modal.modal('hide');
+                MensajeError("MUNICIPIO");
+            }
+            else if (colonia === "") {
+                $modal.modal('hide');
+                MensajeError("COLONIA");
+            }
+            else if (calle === "") {
+                $modal.modal('hide');
+                MensajeError("CALLE");
+            }
+            else if (cp === "") {
+                $modal.modal('hide');
+                MensajeError("CODIGO POSTAL");
+            }
+            else if (banco === "") {
+                $modal.modal('hide');
+                MensajeError("BANCO");
+            }
+            else if (cuentabancaria === "") {
+                $modal.modal('hide');
+                MensajeError("CUENTA BANCARIA");
+            }
+            else if (clabeinterbancaria.length < 18) {
+                $modal.modal('hide');
+                toastr.error("EL CAMPO CLABE INTERBANCARIA DEBE TENER 18 DIGITOS.");
+            }
+            else if (clabeinterbancaria.length > 18) {
+                $modal.modal('hide');
+                toastr.error("EL CAMPO CLABE INTERBANCARIA DEBE TENER 18 DIGITOS.");
+            }
+            else {
+                var _contactos = [];
+
+                _contactos.length = 0;
+
+                $.each($("#detalleContactos tbody tr"), function () {
+                    _contactos.push({
+                        Nombres: $(this).find('td:eq(0)').html(),
+                        Email: $(this).find('td:eq(1)').html(),
+                        Telefono: $(this).find('td:eq(2)').html(),
+                        Puesto: $(this).find('td:eq(3)').html(),
+                    });
+                });
+
+                var data = JSON.stringify({
+                    pais: pais,
+                    estado: estado,
+                    municipio: municipio,
+                    colonia: colonia,
+                    calle: calle,
+                    cp: cp,
+                    nombrebanco: banco,
+                    cuentabancaria: cuentabancaria,
+                    clabeinterbancaria: clabeinterbancaria,
+                    razonsocial: razonsocial,
+                    rfc: rfc,
+                    nombrecomercial: nombrecomercial,
+                    actividadempresarial: actividadempresarial,
+                    representantelegal: representantelegal,
+                    moneda_id: moneda,
+                    credito_id: credito,
+                    categoria_id: categoria,
+                    contactos: _contactos,
+                });
+
+                if (GuardarInformacion(data)) {
+                    window.location = '/proveedores/Index';
+                }
+                else {
+                    $modal.modal('hide');
+                    toastr.error("PROBLEMAS");
+                }
+            }
+        }
+
+        function GuardarInformacion(data) {
+            return $.ajax({
+                contentType: 'application/json; charset=utf-8',
+                dataType: 'json',
+                type: 'POST',
+                url: "/proveedores/CreateProveedor",
+                data: data,
+                success: function (result) {
+                    if (result.respuesta) {
+                        return true;
+                    }
+                    else {
+                        alert('Error');
+                        return false;
+                    }
+                },
+                error: function () {
+                    return false;
+                }
+            });
+        }
+
+        function MensajeError(campo) {      
+            toastr.error("EL CAMPO " + campo + " ES OBLIGATORIO.");
+        }
+
+        function RecargarMoneda() {
+            //esperando la carga...
+            var ddlMoneda = $("#ddlMoneda");
+            ddlMoneda.html('Cargando...aguarde');
+            //realizo la call via jquery ajax
+            $.ajax({
+                type: "POST",
+                url: "/monedafacturacions/ListaMoneda",
+                data: '{}',
+                contentType: "application/json; charset=utf-8",
+                dataType: "json",
+                success: function (response) {
+                    ddlMoneda.empty().append('<option selected="selected" value="0">Seleccione una opcion...</option>');
+                    $.each(response, function () {
+                        ddlMoneda.append($("<option></option>").val(this['Value']).html(this['Text']));
+                    });
+                },
+                failure: function (response) {
+                    alert(response.responseText);
+                },
+                error: function (response) {
+                    alert(response.responseText);
+                }
+            });
+        }
+
+        function RecargarCredito() {
+            //esperando la carga...
+            var ddlCredito = $("#ddlCredito");
+            ddlCredito.html('Cargando...aguarde');
+            //realizo la call via jquery ajax
+            $.ajax({
+                type: "POST",
+                url: "/creditoes/ListaCredito",
+                data: '{}',
+                contentType: "application/json; charset=utf-8",
+                dataType: "json",
+                success: function (response) {
+                    ddlCredito.empty().append('<option selected="selected" value="0">Seleccione una opcion...</option>');
+                    $.each(response, function () {
+                        ddlCredito.append($("<option></option>").val(this['Value']).html(this['Text']));
+                    });
+                },
+                failure: function (response) {
+                    alert(response.responseText);
+                },
+                error: function (response) {
+                    alert(response.responseText);
+                }
+            });
+        }
+
+        function RecargarCategoria() {
+            //esperando la carga...
+            var ddlCategoria = $("#ddlCategoria");
+            ddlCategoria.html('Cargando...aguarde');
+            //realizo la call via jquery ajax
+            $.ajax({
+                type: "POST",
+                url: "/categoriaproveedors/ListaCategoria",
+                data: '{}',
+                contentType: "application/json; charset=utf-8",
+                dataType: "json",
+                success: function (response) {
+                    ddlCategoria.empty().append('<option selected="selected" value="0">Seleccione una opcion...</option>');
+                    $.each(response, function () {
+                        ddlCategoria.append($("<option></option>").val(this['Value']).html(this['Text']));
+                    });
+                },
+                failure: function (response) {
+                    alert(response.responseText);
+                },
+                error: function (response) {
+                    alert(response.responseText);
+                }
+            });
+        }
+
+        $(function () {
+            var ddlMoneda = $("#ddlMoneda");
+            ddlMoneda.empty().append('<option selected="selected" value="0" disabled = "disabled">Loading ...</option>');
+            $.ajax({
+                type: "POST",
+                url: "/monedafacturacions/ListaMoneda",
+                data: '{}',
+                contentType: "application/json; charset=utf-8",
+                dataType: "json",
+                success: function (response) {
+                    ddlMoneda.empty().append('<option selected="selected" value="0">Seleccione una opcion...</option>');
+                    $.each(response, function () {
+                        ddlMoneda.append($("<option></option>").val(this['Value']).html(this['Text']));
+                    });
+                },
+                failure: function (response) {
+                    alert(response.responseText);
+                },
+                error: function (response) {
+                    alert(response.responseText);
+                }
+            });
+        });
+
+        $(function () {
+            var ddlCredito = $("#ddlCredito");
+            ddlCredito.empty().append('<option selected="selected" value="0" disabled = "disabled">Loading ...</option>');
+            $.ajax({
+                type: "POST",
+                url: "/creditoes/ListaCredito",
+                data: '{}',
+                contentType: "application/json; charset=utf-8",
+                dataType: "json",
+                success: function (response) {
+                    ddlCredito.empty().append('<option selected="selected" value="0">Seleccione una opcion...</option>');
+                    $.each(response, function () {
+                        ddlCredito.append($("<option></option>").val(this['Value']).html(this['Text']));
+                    });
+                },
+                failure: function (response) {
+                    alert(response.responseText);
+                },
+                error: function (response) {
+                    alert(response.responseText);
+                }
+            });
+        });
+
+        $(function () {
+            var ddlCategoria = $("#ddlCategoria");
+            ddlCategoria.empty().append('<option selected="selected" value="0" disabled = "disabled">Loading ...</option>');
+            $.ajax({
+                type: "POST",
+                url: "/categoriaproveedors/ListaCategoria",
+                data: '{}',
+                contentType: "application/json; charset=utf-8",
+                dataType: "json",
+                success: function (response) {
+                    ddlCategoria.empty().append('<option selected="selected" value="0">Seleccione una opcion...</option>');
+                    $.each(response, function () {
+                        ddlCategoria.append($("<option></option>").val(this['Value']).html(this['Text']));
+                    });
+                },
+                failure: function (response) {
+                    alert(response.responseText);
+                },
+                error: function (response) {
+                    alert(response.responseText);
+                }
+            });
+        });
+
+        $(function () {
+            var ddlPuestos = $("#ddlPuestos");
+            ddlPuestos.empty().append('<option selected="selected" value="0" disabled = "disabled">Loading ...</option>');
+            $.ajax({
+                type: "POST",
+                url: "/proveedores/ListaPuestos",
+                data: '{}',
+                contentType: "application/json; charset=utf-8",
+                dataType: "json",
+                success: function (response) {
+                    ddlPuestos.empty().append('<option selected="selected" value="0">Seleccione una opcion...</option>');
+                    $.each(response, function () {
+                        ddlPuestos.append($("<option></option>").val(this['Value']).html(this['Text']));
+                    });
+                },
+                failure: function (response) {
+                    alert(response.responseText);
+                },
+                error: function (response) {
+                    alert(response.responseText);
+                }
+            });
+        });
+    </script>
+}

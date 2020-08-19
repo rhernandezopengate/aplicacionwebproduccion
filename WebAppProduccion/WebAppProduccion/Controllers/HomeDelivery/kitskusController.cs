@@ -22,6 +22,33 @@ namespace WebAppProduccion.Controllers.HomeDelivery
             return View(kitskus.ToList());
         }
 
+        public ActionResult CrearDetalleKit(int? id)
+        {
+            ViewBag.IdKit = id;
+            return PartialView();
+        }
+
+        [HttpPost]
+        public ActionResult CrearDetKit(int? idkit, int idsku, int cantidad)
+        {
+            try
+            {
+                kitskus kit = new kitskus();
+                kit.kits_Id = (int)idkit;
+                kit.skus_Id = idsku;
+                kit.Cantidad = cantidad;
+
+                db.kitskus.Add(kit);
+                db.SaveChanges();
+
+                return Json(new { respuesta = true, mensaje = "Operacion Correcta." }, JsonRequestBehavior.AllowGet);
+            }
+            catch (Exception _ex)
+            {
+                return Json(new { respuesta = true, mensaje = _ex.Message.ToString() }, JsonRequestBehavior.AllowGet);
+            }            
+        }
+
         public ActionResult EditarDetalleKit(int? idkit) 
         {
             ViewBag.IdKit = idkit;
@@ -142,7 +169,7 @@ namespace WebAppProduccion.Controllers.HomeDelivery
             {
                 db.Entry(kitskus).State = EntityState.Modified;
                 db.SaveChanges();
-                return Json( new { respuesta = true }, JsonRequestBehavior.AllowGet );
+                return Json(new { respuesta = true, mensaje = "Operacion Correcta." }, JsonRequestBehavior.AllowGet);
             }
             ViewBag.kits_Id = new SelectList(db.kits, "id", "descripcion", kitskus.kits_Id);
             ViewBag.skus_Id = new SelectList(db.skus, "id", "SKU", kitskus.skus_Id);
@@ -172,7 +199,7 @@ namespace WebAppProduccion.Controllers.HomeDelivery
             kitskus kitskus = db.kitskus.Find(id);
             db.kitskus.Remove(kitskus);
             db.SaveChanges();
-            return Json( new { respuesta = true }, JsonRequestBehavior.AllowGet);
+            return Json(new { respuesta = true, mensaje = "Operacion Correcta." }, JsonRequestBehavior.AllowGet);
         }
 
         protected override void Dispose(bool disposing)

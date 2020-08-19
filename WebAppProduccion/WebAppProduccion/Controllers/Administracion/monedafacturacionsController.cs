@@ -20,6 +20,23 @@ namespace WebAppProduccion.Controllers.Administracion
             return View(db.monedafacturacion.ToList());
         }
 
+        [HttpPost]
+        public JsonResult ListaMoneda()
+        {
+            List<SelectListItem> lista = new List<SelectListItem>();
+
+            foreach (var item in db.monedafacturacion.ToList())
+            {
+                lista.Add(new SelectListItem
+                {
+                    Value = item.id.ToString(),
+                    Text = item.descripcion
+                });
+            }
+
+            return Json(lista);
+        }
+
         // GET: monedafacturacions/Details/5
         public ActionResult Details(int? id)
         {

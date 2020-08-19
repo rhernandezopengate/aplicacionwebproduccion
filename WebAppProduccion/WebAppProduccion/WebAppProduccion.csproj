@@ -363,6 +363,7 @@
     <Compile Include="Entities\ModulosSistemas\rolesoperaciones.cs">
       <DependentUpon>ModeloSistemas.tt</DependentUpon>
     </Compile>
+    <Compile Include="Entities\ViewModel\ProveedorViewModel.cs" />
     <Compile Include="Filters\AuthorizeUser.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
@@ -532,6 +533,7 @@
     </Content>
     <None Include="Properties\PublishProfiles\FolderProfile.pubxml" />
     <None Include="Scripts\jquery-3.4.1.intellisense.js" />
+    <Content Include="Scripts\CurrencyJs.js" />
     <Content Include="Scripts\jquery-3.4.1.js" />
     <Content Include="Scripts\jquery-3.4.1.min.js" />
     <Content Include="Scripts\jquery-3.4.1.slim.js" />
@@ -542,6 +544,7 @@
     <Content Include="Scripts\jquery.validate.unobtrusive.js" />
     <Content Include="Scripts\jquery.validate.unobtrusive.min.js" />
     <Content Include="Scripts\modernizr-2.8.3.js" />
+    <Content Include="Scripts\ScriptsApp\ProveedoresJS.js" />
     <Content Include="Scripts\toastr.js" />
     <Content Include="Scripts\toastr.min.js" />
     <Content Include="src\js\custom.js" />
@@ -5052,7 +5055,6 @@
     <Content Include="Views\kitskus\Index.cshtml" />
     <Content Include="Views\homedelivery\Ordenes.cshtml" />
     <Content Include="Views\Shared\_LayoutAdministracion.cshtml" />
-    <Content Include="Views\proveedores\Index.cshtml" />
     <Content Include="Views\creditoes\Create.cshtml" />
     <Content Include="Views\creditoes\Delete.cshtml" />
     <Content Include="Views\creditoes\Details.cshtml" />
@@ -5078,6 +5080,10 @@
     <Content Include="Views\kits\EditarKit.cshtml" />
     <Content Include="Views\kitskus\EditarDetalleKit.cshtml" />
     <Content Include="Views\kits\EditarDetalleKit.cshtml" />
+    <Content Include="Views\kitskus\CrearDetalleKit.cshtml" />
+    <Content Include="Views\proveedores\Index.cshtml" />
+    <Content Include="Views\proveedores\Create.cshtml" />
+    <Content Include="Views\proveedores\Edit.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

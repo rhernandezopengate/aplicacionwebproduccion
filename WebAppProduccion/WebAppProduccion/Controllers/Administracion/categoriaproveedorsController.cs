@@ -20,6 +20,23 @@ namespace WebAppProduccion.Controllers.Administracion
             return View(db.categoriaproveedor.ToList());
         }
 
+        [HttpPost]
+        public JsonResult ListaCategoria()
+        {
+            List<SelectListItem> lista = new List<SelectListItem>();
+
+            foreach (var item in db.categoriaproveedor.OrderBy(x => x.descripcion).ToList())
+            {
+                lista.Add(new SelectListItem
+                {
+                    Value = item.id.ToString(),
+                    Text = item.descripcion
+                });
+            }
+
+            return Json(lista);
+        }
+
         // GET: categoriaproveedors/Details/5
         public ActionResult Details(int? id)
         {

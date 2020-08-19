@@ -20,6 +20,23 @@ namespace WebAppProduccion.Controllers.Administracion
             return View(db.credito.ToList());
         }
 
+        [HttpPost]
+        public JsonResult ListaCredito()
+        {
+            List<SelectListItem> lista = new List<SelectListItem>();
+
+            foreach (var item in db.credito.OrderByDescending(x => x.dias).ToList())
+            {
+                lista.Add(new SelectListItem
+                {
+                    Value = item.id.ToString(),
+                    Text = item.descripcion
+                });
+            }
+
+            return Json(lista);
+        }
+
         // GET: creditoes/Details/5
         public ActionResult Details(int? id)
         {

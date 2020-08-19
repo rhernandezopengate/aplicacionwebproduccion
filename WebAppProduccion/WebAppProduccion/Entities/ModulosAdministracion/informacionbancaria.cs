@@ -14,12 +14,18 @@ namespace WebAppProduccion.Entities.ModulosAdministracion
     
     public partial class informacionbancaria
     {
-        public int id { get; set; }
-        public string NombreBanco { get; set; }
-        public string CuentaBancaria { get; set; }
-        public string ClaveInterbancaria { get; set; }
-        public int Proveedores_Id { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
+        public informacionbancaria()
+        {
+            this.proveedores = new HashSet<proveedores>();
+        }
     
-        public virtual proveedores proveedores { get; set; }
+        public int id { get; set; }
+        public string nombrebanco { get; set; }
+        public string cuentabancaria { get; set; }
+        public string claveinterbancaria { get; set; }
+    
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<proveedores> proveedores { get; set; }
     }
 }

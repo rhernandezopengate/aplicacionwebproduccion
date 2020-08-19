@@ -15,10 +15,11 @@ namespace WebAppProduccion.Entities.ModulosAdministracion
     public partial class contactosproveedores
     {
         public int id { get; set; }
-        public string nombres { get; set; }
-        public string email { get; set; }
-        public string puesto { get; set; }
-        public int proveedores_id { get; set; }
+        public string Nombres { get; set; }
+        public string Email { get; set; }
+        public string Puesto { get; set; }
+        public int Proveedores_Id { get; set; }
+        public string Telefono { get; set; }
     
         public virtual proveedores proveedores { get; set; }
     }

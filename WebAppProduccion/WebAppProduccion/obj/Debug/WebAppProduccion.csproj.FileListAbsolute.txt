@@ -124,3 +124,4 @@ C:\Users\RubenHernandez\Documents\GitHub\aplicacionwebproduccion\WebAppProduccio
 C:\Users\RubenHernandez\Documents\GitHub\aplicacionwebproduccion\WebAppProduccion\WebAppProduccion\obj\Debug\WebAppProduccion.csproj.CopyComplete
 C:\Users\RubenHernandez\Documents\GitHub\aplicacionwebproduccion\WebAppProduccion\WebAppProduccion\obj\Debug\WebAppProduccion.dll
 C:\Users\RubenHernandez\Documents\GitHub\aplicacionwebproduccion\WebAppProduccion\WebAppProduccion\obj\Debug\WebAppProduccion.pdb
+C:\Users\RubenHernandez\Documents\GitHub\aplicacionwebproduccion\WebAppProduccion\WebAppProduccion\obj\Debug\WebAppProduccion.csprojAssemblyReference.cache
